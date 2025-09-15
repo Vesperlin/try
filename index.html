@@ -14,18 +14,16 @@
     }
     .section { margin:15px; }
     .section h2 { font-size:16px; color:#aaa; margin-bottom:10px; }
-    .cards { display:flex; flex-wrap:wrap; gap:10px; }
-    .card {
-      flex:1 1 45%; background:#222; padding:20px; border-radius:10px;
-      text-align:center; font-size:16px; font-weight:bold; cursor:pointer;
-      position:relative; transition:0.3s;
+    .list { display:flex; flex-direction:column; gap:8px; }
+    .item {
+      background:#1a1a1a; padding:12px 15px; border-radius:8px;
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:16px; font-weight:500; cursor:pointer;
+      transition:0.3s;
     }
-    .card:hover { background:#333; color:#4da6ff; }
-    .btn {
-      position:absolute; font-size:14px; cursor:pointer; color:#aaa;
-    }
-    .fav { top:8px; right:8px; }
-    .export { bottom:8px; right:8px; }
+    .item:hover { background:#2a2a2a; color:#4da6ff; }
+    .actions { display:flex; gap:10px; font-size:14px; color:#888; }
+    .actions span { cursor:pointer; }
     footer {
       position:fixed; bottom:0; left:0; right:0; height:50px;
       background:#222; display:flex; justify-content:space-around; align-items:center;
@@ -38,30 +36,42 @@
 <body>
   <header>Vesper 系统入口</header>
   <div class="search">
-    <input type="text" placeholder="🔍 搜索功能...">
+    <input type="text" placeholder="搜索功能...">
   </div>
   <div class="section">
     <h2>收藏夹</h2>
-    <div class="cards" id="favorites"></div>
+    <div class="list" id="favorites"></div>
   </div>
   <div class="section">
     <h2>全部功能</h2>
-    <div class="cards">
-      <div class="card" data-name="OCR">OCR
-        <span class="btn fav">⭐</span>
-        <span class="btn export">⬇️</span>
+    <div class="list">
+      <div class="item" data-name="OCR">
+        <span>OCR 识别</span>
+        <div class="actions">
+          <span class="fav">✦</span>
+          <span class="export">⤓</span>
+        </div>
       </div>
-      <div class="card" data-name="AI 助手">AI 助手
-        <span class="btn fav">⭐</span>
-        <span class="btn export">⬇️</span>
+      <div class="item" data-name="AI 助手">
+        <span>AI 助手</span>
+        <div class="actions">
+          <span class="fav">✦</span>
+          <span class="export">⤓</span>
+        </div>
       </div>
-      <div class="card" data-name="工具箱">工具箱
-        <span class="btn fav">⭐</span>
-        <span class="btn export">⬇️</span>
+      <div class="item" data-name="工具箱">
+        <span>工具箱</span>
+        <div class="actions">
+          <span class="fav">✦</span>
+          <span class="export">⤓</span>
+        </div>
       </div>
-      <div class="card" data-name="我的">我的
-        <span class="btn fav">⭐</span>
-        <span class="btn export">⬇️</span>
+      <div class="item" data-name="我的">
+        <span>我的</span>
+        <div class="actions">
+          <span class="fav">✦</span>
+          <span class="export">⤓</span>
+        </div>
       </div>
     </div>
   </div>
@@ -77,20 +87,18 @@
     document.querySelectorAll(".fav").forEach(btn=>{
       btn.addEventListener("click", e=>{
         e.stopPropagation();
-        const card = e.target.parentElement;
-        const name = card.dataset.name;
+        const name = e.target.closest(".item").dataset.name;
         let fav = document.createElement("div");
-        fav.className="card";
+        fav.className="item";
         fav.textContent = name;
         favContainer.appendChild(fav);
         alert(name+" 已加入收藏夹");
       });
     });
-
     document.querySelectorAll(".export").forEach(btn=>{
       btn.addEventListener("click", e=>{
         e.stopPropagation();
-        const name = e.target.parentElement.dataset.name;
+        const name = e.target.closest(".item").dataset.name;
         alert("导出 "+name+" 为快捷方式（示例提示）");
       });
     });
