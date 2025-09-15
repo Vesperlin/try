@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vesper 系统入口</title>
+  <style>
+    body { margin:0; font-family:-apple-system; background:#111; color:#fff; }
+    header { padding:15px; text-align:center; font-size:20px; font-weight:bold; border-bottom:1px solid #333; }
+    .search { margin:15px; }
+    .search input {
+      width:100%; padding:10px; border:none; border-radius:8px;
+      background:#222; color:#fff; font-size:14px;
+    }
+    .section { margin:15px; }
+    .section h2 { font-size:16px; color:#aaa; margin-bottom:10px; }
+    .cards { display:flex; flex-wrap:wrap; gap:10px; }
+    .card {
+      flex:1 1 45%; background:#222; padding:20px; border-radius:10px;
+      text-align:center; font-size:16px; font-weight:bold; cursor:pointer;
+      position:relative; transition:0.3s;
+    }
+    .card:hover { background:#333; color:#4da6ff; }
+    .btn {
+      position:absolute; font-size:14px; cursor:pointer; color:#aaa;
+    }
+    .fav { top:8px; right:8px; }
+    .export { bottom:8px; right:8px; }
+    footer {
+      position:fixed; bottom:0; left:0; right:0; height:50px;
+      background:#222; display:flex; justify-content:space-around; align-items:center;
+      font-size:14px; border-top:1px solid #333;
+    }
+    footer div { cursor:pointer; }
+    footer div.active { color:#4da6ff; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <header>Vesper 系统入口</header>
+  <div class="search">
+    <input type="text" placeholder="🔍 搜索功能...">
+  </div>
+  <div class="section">
+    <h2>收藏夹</h2>
+    <div class="cards" id="favorites"></div>
+  </div>
+  <div class="section">
+    <h2>全部功能</h2>
+    <div class="cards">
+      <div class="card" data-name="OCR">OCR
+        <span class="btn fav">⭐</span>
+        <span class="btn export">⬇️</span>
+      </div>
+      <div class="card" data-name="AI 助手">AI 助手
+        <span class="btn fav">⭐</span>
+        <span class="btn export">⬇️</span>
+      </div>
+      <div class="card" data-name="工具箱">工具箱
+        <span class="btn fav">⭐</span>
+        <span class="btn export">⬇️</span>
+      </div>
+      <div class="card" data-name="我的">我的
+        <span class="btn fav">⭐</span>
+        <span class="btn export">⬇️</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="active">首页</div>
+    <div>收藏</div>
+    <div>我的</div>
+    <div>设置</div>
+  </footer>
+
+  <script>
+    const favContainer = document.getElementById("favorites");
+    document.querySelectorAll(".fav").forEach(btn=>{
+      btn.addEventListener("click", e=>{
+        e.stopPropagation();
+        const card = e.target.parentElement;
+        const name = card.dataset.name;
+        let fav = document.createElement("div");
+        fav.className="card";
+        fav.textContent = name;
+        favContainer.appendChild(fav);
+        alert(name+" 已加入收藏夹");
+      });
+    });
+
+    document.querySelectorAll(".export").forEach(btn=>{
+      btn.addEventListener("click", e=>{
+        e.stopPropagation();
+        const name = e.target.parentElement.dataset.name;
+        alert("导出 "+name+" 为快捷方式（示例提示）");
+      });
+    });
+  </script>
+</body>
+</html>
