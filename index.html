@@ -112,25 +112,24 @@
 </main>
 
 <!-- 底部导航 -->
-<nav class="navbar">
-  <a class="active" href="index.html" aria-label="首页">
-    <svg class="icon"><use href="assets/icons.svg#icon-home"/></svg>
-    首页
+<div class="navbar">
+  <a href="index.html" class="active">
+    <svg class="icon"><use xlink:href="assets/icons.svg#icon-home"></use></svg>
+    <span>首页</span>
   </a>
-  <a href="category/fav.html" aria-label="收藏">
-    <svg class="icon"><use href="assets/icons.svg#icon-star"/></svg>
-    收藏
+  <a href="favorites.html">
+    <svg class="icon"><use xlink:href="assets/icons.svg#icon-star"></use></svg>
+    <span>收藏</span>
   </a>
-  <a href="category/mine.html" aria-label="我的">
-    <svg class="icon"><use href="assets/icons.svg#icon-user"/></svg>
-    我的
+  <a href="profile.html">
+    <svg class="icon"><use xlink:href="assets/icons.svg#icon-user"></use></svg>
+    <span>我的</span>
   </a>
-  <a href="category/settings.html" aria-label="设置">
-    <svg class="icon"><use href="assets/icons.svg#icon-settings"/></svg>
-    设置
+  <a href="settings.html">
+    <svg class="icon"><use xlink:href="assets/icons.svg#icon-settings"></use></svg>
+    <span>设置</span>
   </a>
-</nav>
-
+</div>
 <!-- 极简脚本：搜索占位 -->
 <script>
 document.getElementById('q').addEventListener('input', e=>{
