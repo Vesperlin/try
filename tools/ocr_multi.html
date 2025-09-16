@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>多图合并 - OCR</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<main class="container">
+  <div class="brand">多图合并</div>
+  <p class="sub">选择多张图片，系统会自动识别文字并合并。</p>
+
+  <div class="card">
+    <label class="btn">
+      <input type="file" accept="image/*" hidden multiple onchange="previewFiles(event)">
+      选择多张图片
+    </label>
+    <div id="previewList" style="margin-top:1rem;"></div>
+    <textarea id="output" class="textarea" placeholder="合并结果会显示在这里…" readonly></textarea>
+  </div>
+</main>
+
+<nav class="navbar">
+  <a href="../index.html"><svg class="icon"><use href="../assets/icons.svg#icon-home"/></svg>首页</a>
+  <a href="../category/ocr.html"><svg class="icon"><use href="../assets/icons.svg#icon-back"/></svg>返回</a>
+</nav>
+
+<script>
+function previewFiles(e){
+  const files = e.target.files;
+  const list = document.getElementById("previewList");
+  list.innerHTML = "";
+  for(let f of files){
+    const img = document.createElement("img");
+    img.src = URL.createObjectURL(f);
+    img.style.maxWidth = "80px";
+    img.style.margin = "5px";
+    list.appendChild(img);
+  }
+  document.getElementById("output").value = "（这里将调用 OCR 模型 API，结果会合并显示）";
+}
+</script>
+</body>
+</html>
