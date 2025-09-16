@@ -17,38 +17,48 @@ body {
   background: #111;
   border-top: 1px solid #333;
 
-  /* 让底栏高度更高 */
+  /* 让底栏高度更高（建议 70px，iOS 边条不挡） */
   height: 70px;
 
   /* iOS 安全区适配 */
   padding-bottom: env(safe-area-inset-bottom);
-  padding-top: 0.6rem;
 }
 
 /* 底栏里的按钮图标/文字 */
 .navbar a {
   flex: 1;
   text-align: center;
-  color: #ccc;
-  font-size: 14px;
+  color: #b5b5b5;
+  font-size: 13px;              /* 文字稍小，避免喧宾夺主 */
   text-decoration: none;
-  line-height: 1.2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 4px;                     /* 图标和文字之间的间距 */
+  transition: color 0.2s ease;  /* 悬停/点击时过渡更自然 */
+}
+
+/* 底栏图标大小（svg 或 iconfont） */
+.navbar a .icon {
+  font-size: 22px;   /* 比文字大，更突出 */
+  line-height: 1;
 }
 
 /* 高亮状态 */
 .navbar a.active {
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
 }
+
 /* 卡片 */
 .card {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  border-radius: 8px;   /* 轻微圆角，更现代 */
+  padding: 1rem;
+  background: #181818;
 }
 .card .subtitle {
-  font-size: 13px;
-  color: #9a9a9a;
+  font-size: 12px;
+  color: #8c8c8c;
 }
