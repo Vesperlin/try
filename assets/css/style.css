@@ -11,28 +11,29 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
-  height: 64px;
+  width: 100%;
   background: #111;
+  border-top: 1px solid #333;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-top: 1px solid #333;
+  height: 70px;   /* 原来可能是 55px，这里加高 */
+  padding-bottom: env(safe-area-inset-bottom); /* iOS 底部安全区 */
+  z-index: 999;
 }
+
 .navbar a {
   flex: 1;
   text-align: center;
-  text-decoration: none;
-  color: #aaa;
+  color: #bbb;
   font-size: 14px;
-  font-weight: 600;
-}
-.navbar a.active {
-  color: #fff;
-  border-top: 2px solid #fff;
-  padding-top: 6px;
+  text-decoration: none;
 }
 
+.navbar a.active {
+  color: #fff;
+  font-weight: bold;
+}
 /* 卡片 */
 .card {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
