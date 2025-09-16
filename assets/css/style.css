@@ -1,15 +1,43 @@
-/* 全局 */
-body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;background:#111;color:#f0f0f0}
+/* 通用设置 */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  background: #0f0f0f;
+  color: #f0f0f0;
+}
 
-/* 容器与标题 */
-.container{width:90%;max-width:1000px;margin:0 auto;padding:20px}
-h1,h2,h3{font-weight:700;text-align:center;margin:20px 0}
+/* 底部导航栏 */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #111;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #333;
+}
+.navbar a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 600;
+}
+.navbar a.active {
+  color: #fff;
+  border-top: 2px solid #fff;
+  padding-top: 6px;
+}
 
-/* 按钮 */
-.button{display:inline-block;padding:12px 20px;margin:10px;font-size:16px;font-weight:700;text-align:center;border-radius:8px;text-decoration:none;color:#fff;background:linear-gradient(135deg,#1f1f1f,#333);border:1px solid #444;transition:all .3s}
-.button:hover{background:linear-gradient(135deg,#333,#555)}
-
-/* 底部导航 */
-.navbar{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-around;background:#1a1a1a;border-top:1px solid #333;padding:12px 0}
-.navbar a{color:#ccc;font-size:14px;text-decoration:none}
-.navbar a.active{color:#fff;font-weight:700}
+/* 卡片 */
+.card {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.card .subtitle {
+  font-size: 13px;
+  color: #9a9a9a;
+}
