@@ -6,185 +6,203 @@
   <title>Vesper 聚合工具箱</title>
   <style>
     body {
-      margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      background:#0d0d0d; color:#fff;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
     }
     header {
-      padding:12px; text-align:center; background:#111;
-      font-size:1.3em; font-weight:bold; border-bottom:1px solid #222;
+      background: #111;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+      border-bottom: 1px solid #222;
+      font-size: 1.1em;
     }
-    .search-bar{margin:12px;text-align:center;}
-    .search-bar input{
-      width:95%;padding:8px;border-radius:6px;border:none;outline:none;font-size:.95em;
+    /* AI 辅助模式小条 */
+    #aiBar {
+      background: #1a1a1a;
+      padding: 6px 10px;
+      font-size: 0.85em;
+      color: #ccc;
+      border-bottom: 1px solid #222;
+      cursor: pointer;
     }
-    nav{display:flex;flex-wrap:wrap;justify-content:center;padding:8px;background:#111;border-bottom:1px solid #222;}
-    nav button{background:none;border:none;color:#ccc;margin:4px 8px;cursor:pointer;font-size:.9em;}
-    nav button.active{color:#4da6ff;font-weight:bold;}
-    .section{padding:10px 14px;}
-    h2{font-size:1em;color:#aaa;margin:10px 0;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
-    .card{
-      background:#1a1a1a;padding:12px;border-radius:8px;text-align:center;cursor:pointer;
-      transition:background .2s,transform .2s;
+    #aiBar input {
+      width: 100%;
+      padding: 6px;
+      border: none;
+      border-radius: 6px;
+      background: #222;
+      color: #fff;
+      font-size: 0.9em;
+      display: none;
     }
-    .card:hover{background:#222;transform:scale(1.04);}
-    .card-title{font-weight:bold;font-size:.95em;margin-bottom:6px;}
-    .card-subtitle{font-size:.75em;color:#888;}
-    footer{margin-top:20px;padding:12px;text-align:center;font-size:.85em;color:#666;border-top:1px solid #222;}
-    .hidden{display:none;}
-    /* 悬浮窗 */
-    #chatFloat{
-      position:fixed;top:20px;right:20px;width:280px;height:400px;background:#1a1a1a;
-      border:1px solid #333;border-radius:8px;display:none;flex-direction:column;
+    .page {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: none;
     }
-    #chatFloat header{background:#111;padding:6px;font-size:.9em;text-align:center;}
-    #chatFloat .body{flex:1;overflow:auto;padding:6px;font-size:.8em;color:#ccc;}
-    #chatFloat input{border:none;padding:6px;width:100%;box-sizing:border-box;background:#222;color:#fff;}
+    .page.active { display: block; }
+    h2 {
+      font-size: 1em;
+      margin: 12px 0;
+      color: #aaa;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+    }
+    .card {
+      background: #1a1a1a;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      background: #222;
+      transform: scale(1.03);
+    }
+    .card-title { font-weight: bold; margin-bottom: 4px; }
+    .card-subtitle { font-size: 0.75em; color: #888; }
+    /* 底部导航栏 */
+    footer {
+      display: flex;
+      justify-content: space-around;
+      background: #111;
+      border-top: 1px solid #222;
+      padding: 8px 0;
+    }
+    footer div {
+      flex: 1;
+      text-align: center;
+      font-size: 0.85em;
+      color: #aaa;
+      cursor: pointer;
+    }
+    footer div.active { color: #4da6ff; font-weight: bold; }
+    /* 社区发帖输入框 */
+    #postBox {
+      display: flex;
+      margin-top: 10px;
+    }
+    #postBox input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      background: #222;
+      color: #fff;
+    }
+    #postBox button {
+      margin-left: 6px;
+      padding: 8px 12px;
+      background: #4da6ff;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <header>Vesper 聚合工具箱</header>
-  <div class="search-bar">
-    <input id="searchBox" type="text" placeholder="搜索功能 / 输入暗号解锁黑科技...">
-  </div>
+  
+  <!-- AI 辅助模式 -->
+  <div id="aiBar">🤖 ChatGPT 辅助模式（点击输入）<input type="text" placeholder="和 ChatGPT 对话..."></div>
 
-  <nav>
-    <button class="active" data-go="file">文件工具</button>
-    <button data-go="ai">AI 工具</button>
-    <button data-go="system">系统工具</button>
-    <button data-go="device">设备工具</button>
-    <button data-go="efficiency">效率工具</button>
-    <button data-go="shortcuts">快捷指令库</button>
-    <button data-go="community">用户交流</button>
-    <button data-go="lab" id="labBtn" class="hidden">黑科技实验室</button>
-    <button data-go="user">我的</button>
-  </nav>
-
-  <!-- 文件工具 -->
-  <div id="page-file" class="section">
-    <h2>文件与文档工具</h2>
+  <!-- 首页 -->
+  <div id="home" class="page active">
+    <div class="search">
+      <input type="text" placeholder="搜索功能..." style="width:100%;padding:8px;border:none;border-radius:6px;background:#222;color:#fff;">
+    </div>
+    <h2>收藏夹</h2>
     <div class="grid">
-      <div class="card"><div class="card-title">OCR 识别</div><div class="card-subtitle">单图/多图</div></div>
-      <div class="card"><div class="card-title">PDF 转换</div><div class="card-subtitle">Word/Excel/PPT</div></div>
-      <div class="card"><div class="card-title">文档对比</div><div class="card-subtitle">合同差异</div></div>
-      <div class="card"><div class="card-title">保存网页</div><div class="card-subtitle">快照归档</div></div>
+      <div class="card"><div class="card-title">OCR 识别</div><div class="card-subtitle">提取文字</div></div>
+      <div class="card"><div class="card-title">AI 对话</div><div class="card-subtitle">智能助手</div></div>
+    </div>
+    <h2>功能分类</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">文件工具</div></div>
+      <div class="card"><div class="card-title">AI 工具</div></div>
+      <div class="card"><div class="card-title">系统工具</div></div>
+      <div class="card"><div class="card-title">设备工具</div></div>
+      <div class="card"><div class="card-title">效率工具</div></div>
+      <div class="card"><div class="card-title">快捷指令库</div></div>
+      <div class="card"><div class="card-title">社区</div></div>
     </div>
   </div>
 
-  <!-- AI 工具 -->
-  <div id="page-ai" class="section hidden">
-    <h2>AI 工具</h2>
-    <div class="grid">
-      <div class="card"><div class="card-title">AI 对话</div><div class="card-subtitle">多模型</div></div>
-      <div class="card"><div class="card-title">翻译助手</div><div class="card-subtitle">多语言</div></div>
-      <div class="card"><div class="card-title">写作润色</div><div class="card-subtitle">文本优化</div></div>
-      <div class="card"><div class="card-title">大模型导览</div><div class="card-subtitle">特点推荐</div></div>
-    </div>
-  </div>
-
-  <!-- 系统工具 -->
-  <div id="page-system" class="section hidden">
-    <h2>系统工具</h2>
-    <div class="grid">
-      <div class="card"><div class="card-title">进制转换</div><div class="card-subtitle">2/10/16</div></div>
-      <div class="card"><div class="card-title">时间戳</div><div class="card-subtitle">互转日期</div></div>
-      <div class="card"><div class="card-title">文件校验</div><div class="card-subtitle">MD5/SHA256</div></div>
-    </div>
-  </div>
-
-  <!-- 设备工具 -->
-  <div id="page-device" class="section hidden">
-    <h2>设备工具</h2>
-    <div class="grid">
-      <div class="card"><div class="card-title">电池信息</div><div class="card-subtitle">电量健康</div></div>
-      <div class="card"><div class="card-title">网络检测</div><div class="card-subtitle">IP/网速</div></div>
-      <div class="card"><div class="card-title">域名指纹</div><div class="card-subtitle">证书/历史</div></div>
-    </div>
-  </div>
-
-  <!-- 效率工具 -->
-  <div id="page-efficiency" class="section hidden">
-    <h2>效率工具</h2>
-    <div class="grid">
-      <div class="card"><div class="card-title">待办清单</div><div class="card-subtitle">任务管理</div></div>
-      <div class="card"><div class="card-title">笔记本</div><div class="card-subtitle">Markdown</div></div>
-      <div class="card"><div class="card-title">收藏夹</div><div class="card-subtitle">常用直达</div></div>
-    </div>
-  </div>
+  <!-- 工具页（占位） -->
+  <div id="tools" class="page"><h2>全部工具（示例占位）</h2></div>
 
   <!-- 快捷指令库 -->
-  <div id="page-shortcuts" class="section hidden">
+  <div id="shortcuts" class="page">
     <h2>快捷指令库</h2>
     <div class="grid">
-      <div class="card"><div class="card-title">效率类</div><div class="card-subtitle">批量操作</div></div>
-      <div class="card"><div class="card-title">系统类</div><div class="card-subtitle">控制设置</div></div>
-      <div class="card"><div class="card-title">AI 类</div><div class="card-subtitle">OCR/翻译</div></div>
-      <div class="card"><div class="card-title">用户上传</div><div class="card-subtitle">自建库</div></div>
+      <div class="card"><div class="card-title">效率类</div></div>
+      <div class="card"><div class="card-title">系统类</div></div>
+      <div class="card"><div class="card-title">AI 类</div></div>
+      <div class="card"><div class="card-title">用户上传</div></div>
     </div>
   </div>
 
-  <!-- 用户交流 -->
-  <div id="page-community" class="section hidden">
+  <!-- 社区 -->
+  <div id="community" class="page">
     <h2>用户交流区</h2>
-    <div class="grid">
-      <div class="card"><div class="card-title">经验分享</div><div class="card-subtitle">使用技巧</div></div>
-      <div class="card"><div class="card-title">推荐工具</div><div class="card-subtitle">互相安利</div></div>
-      <div class="card"><div class="card-title">评论区</div><div class="card-subtitle">交流互动</div></div>
-    </div>
-  </div>
-
-  <!-- 黑科技实验室 -->
-  <div id="page-lab" class="section hidden">
-    <h2>黑科技实验室</h2>
-    <div class="grid">
-      <div class="card"><div class="card-title">隐写工具</div><div class="card-subtitle">文件藏图</div></div>
-      <div class="card"><div class="card-title">自毁链接</div><div class="card-subtitle">一次下载</div></div>
-      <div class="card"><div class="card-title">元数据伪造</div><div class="card-subtitle">信息修改</div></div>
-      <div class="card"><div class="card-title">AI DeepFake 检测</div><div class="card-subtitle">真假识别</div></div>
+    <div class="card"><div class="card-title">用户A</div><div class="card-subtitle">今天试了OCR，很好用！</div></div>
+    <div class="card"><div class="card-title">用户B</div><div class="card-subtitle">推荐一个新的快捷指令！</div></div>
+    <div id="postBox">
+      <input type="text" placeholder="写点什么...">
+      <button>发布</button>
     </div>
   </div>
 
   <!-- 我的 -->
-  <div id="page-user" class="section hidden">
+  <div id="user" class="page">
     <h2>用户中心</h2>
     <div class="grid">
-      <div class="card"><div class="card-title">账户</div><div class="card-subtitle">登录/注册</div></div>
-      <div class="card"><div class="card-title">会员中心</div><div class="card-subtitle">每日体验/无限</div></div>
-      <div class="card"><div class="card-title">开发者模式</div><div class="card-subtitle">功能管理/悬浮窗</div></div>
+      <div class="card"><div class="card-title">账户</div></div>
+      <div class="card"><div class="card-title">会员中心</div></div>
+      <div class="card"><div class="card-title">开发者模式</div></div>
     </div>
   </div>
 
-  <footer>© Vesper · 2025</footer>
-
-  <!-- ChatGPT 悬浮窗 -->
-  <div id="chatFloat">
-    <header>AI 辅助模式</header>
-    <div class="body">这里显示对话内容...</div>
-    <input type="text" placeholder="输入内容...">
-  </div>
+  <!-- 底部导航 -->
+  <footer>
+    <div class="active" data-go="home">首页</div>
+    <div data-go="tools">工具</div>
+    <div data-go="shortcuts">快捷指令</div>
+    <div data-go="community">社区</div>
+    <div data-go="user">我的</div>
+  </footer>
 
   <script>
-    // 页面切换
-    const navBtns=document.querySelectorAll("nav button");
+    // 底部导航切换
+    const navBtns=document.querySelectorAll("footer div");
+    const pages=document.querySelectorAll(".page");
     navBtns.forEach(btn=>{
       btn.addEventListener("click",()=>{
         navBtns.forEach(b=>b.classList.remove("active"));
         btn.classList.add("active");
-        document.querySelectorAll(".section").forEach(sec=>sec.classList.add("hidden"));
-        document.getElementById("page-"+btn.dataset.go).classList.remove("hidden");
+        pages.forEach(p=>p.classList.remove("active"));
+        document.getElementById(btn.dataset.go).classList.add("active");
       });
     });
-    // 黑科技解锁
-    const secret="Cici080306Vesper";
-    document.getElementById("searchBox").addEventListener("input",(e)=>{
-      if(e.target.value.trim()===secret){
-        document.getElementById("labBtn").classList.remove("hidden");
-        alert("黑科技实验室已解锁");
-      }
-    });
-    // 模拟开发者模式打开悬浮窗
-    document.querySelector("#page-user .card:nth-child(3)").addEventListener("click",()=>{
-      document.getElementById("chatFloat").style.display="flex";
+    // AI 辅助条展开
+    const aiBar=document.getElementById("aiBar");
+    const aiInput=aiBar.querySelector("input");
+    aiBar.addEventListener("click",()=>{
+      aiInput.style.display=aiInput.style.display==="block"?"none":"block";
+      if(aiInput.style.display==="block") aiInput.focus();
     });
   </script>
 </body>
