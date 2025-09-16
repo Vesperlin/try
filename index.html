@@ -10,6 +10,9 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: #0d0d0d;
       color: #f0f0f0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
@@ -24,6 +27,12 @@
       font-size: 18px;
       font-weight: bold;
       letter-spacing: 1px;
+    }
+
+    .page {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 100px; /* 避免被底部导航遮挡 */
     }
 
     .search-bar {
@@ -43,7 +52,7 @@
       outline: none;
     }
 
-    /* 分类 */
+    /* 分类卡片 */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -52,13 +61,11 @@
     }
     .card {
       background: linear-gradient(145deg, #1a1a1a, #111);
-      color: #fff;
       border-radius: 12px;
       padding: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
       border: 1px solid #222;
       transition: all 0.25s ease;
     }
@@ -81,8 +88,8 @@
       margin-top: 3px;
     }
     .help-btn {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       background: #2a2a2a;
       border-radius: 50%;
       display: flex;
@@ -91,12 +98,12 @@
       cursor: pointer;
     }
     .help-btn svg {
-      width: 14px;
-      height: 14px;
+      width: 15px;
+      height: 15px;
       fill: #bbb;
     }
 
-    /* 底部导航 */
+    /* 底部导航（加高） */
     .footer {
       position: fixed;
       bottom: 0;
@@ -105,20 +112,20 @@
       background: #111;
       display: flex;
       justify-content: space-around;
-      padding: 12px 0;
+      padding: 16px 0; /* 增加高度 */
       border-top: 1px solid #333;
     }
     .footer .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 12px;
+      font-size: 13px;
       color: #888;
     }
     .footer .nav-item svg {
-      width: 20px;
-      height: 20px;
-      margin-bottom: 3px;
+      width: 22px;
+      height: 22px;
+      margin-bottom: 4px;
       fill: #888;
     }
     .footer .active {
@@ -128,12 +135,52 @@
       fill: white;
     }
 
-    footer {
+    /* 详情页覆盖层 */
+    #detailOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    #detailBox {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 20px;
+      width: 85%;
+      max-width: 400px;
       text-align: center;
-      font-size: 12px;
-      color: #555;
+      border: 1px solid #333;
+    }
+    #detailBox h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    .detail-btn {
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
       padding: 10px;
-      margin-bottom: 60px;
+      margin: 6px 0;
+      width: 100%;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .detail-btn:hover {
+      background: #333;
+    }
+    .close-btn {
+      margin-top: 12px;
+      background: #4a4a4a;
     }
   </style>
 </head>
@@ -143,57 +190,38 @@
     <h1>Vesper 系统入口</h1>
   </header>
 
-  <div class="search-bar">
-    <input type="text" placeholder="搜索功能 / 工具...">
+  <div class="page">
+    <div class="search-bar">
+      <input type="text" placeholder="搜索功能 / 工具...">
+    </div>
+
+    <section>
+      <h3 style="padding:0 15px;color:#ccc;">大分类</h3>
+      <div class="grid">
+        <div class="card">
+          <div class="card-left">
+            <div class="card-title">OCR</div>
+            <div class="card-sub">图片识别工具</div>
+          </div>
+          <div class="help-btn" onclick="openDetail('OCR')">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm.25 15h-1.5v-1.5h1.5zm1.75-6.5c-.5.39-1.05.82-1.05 1.5v.5h-1.5v-.75c0-1.05.73-1.61 1.25-2l.44-.35a1.48 1.48 0 0 0 .56-1.15 1.5 1.5 0 0 0-3 0H8.5a3 3 0 0 1 6 0 2.96 2.96 0 0 1-1.25 2.25z"/></svg>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-left">
+            <div class="card-title">AI 助手</div>
+            <div class="card-sub">大模型与智能功能</div>
+          </div>
+          <div class="help-btn" onclick="openDetail('AI 助手')">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm.25 15h-1.5v-1.5h1.5zm1.75-6.5c-.5.39-1.05.82-1.05 1.5v.5h-1.5v-.75c0-1.05.73-1.61 1.25-2l.44-.35a1.48 1.48 0 0 0 .56-1.15 1.5 1.5 0 0 0-3 0H8.5a3 3 0 0 1 6 0 2.96 2.96 0 0 1-1.25 2.25z"/></svg>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <section>
-    <h3 style="padding:0 15px;color:#ccc;">大分类</h3>
-    <div class="grid">
-      <div class="card">
-        <div class="card-left">
-          <div class="card-title">OCR</div>
-          <div class="card-sub">图片识别工具</div>
-        </div>
-        <div class="help-btn">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm.25 15h-1.5v-1.5h1.5zm1.75-6.5c-.5.39-1.05.82-1.05 1.5v.5h-1.5v-.75c0-1.05.73-1.61 1.25-2l.44-.35a1.48 1.48 0 0 0 .56-1.15 1.5 1.5 0 0 0-3 0H8.5a3 3 0 0 1 6 0 2.96 2.96 0 0 1-1.25 2.25z"/></svg>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-left">
-          <div class="card-title">AI 助手</div>
-          <div class="card-sub">大模型与智能功能</div>
-        </div>
-        <div class="help-btn">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm.25 15h-1.5v-1.5h1.5zm1.75-6.5c-.5.39-1.05.82-1.05 1.5v.5h-1.5v-.75c0-1.05.73-1.61 1.25-2l.44-.35a1.48 1.48 0 0 0 .56-1.15 1.5 1.5 0 0 0-3 0H8.5a3 3 0 0 1 6 0 2.96 2.96 0 0 1-1.25 2.25z"/></svg>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-left">
-          <div class="card-title">工具箱</div>
-          <div class="card-sub">常用实用功能</div>
-        </div>
-        <div class="help-btn">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm.25 15h-1.5v-1.5h1.5zm1.75-6.5c-.5.39-1.05.82-1.05 1.5v.5h-1.5v-.75c0-1.05.73-1.61 1.25-2l.44-.35a1.48 1.48 0 0 0 .56-1.15 1.5 1.5 0 0 0-3 0H8.5a3 3 0 0 1 6 0 2.96 2.96 0 0 1-1.25 2.25z"/></svg>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-left">
-          <div class="card-title">我的</div>
-          <div class="card-sub">个人中心与设置</div>
-        </div>
-        <div class="help-btn">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm.25 15h-1.5v-1.5h1.5zm1.75-6.5c-.5.39-1.05.82-1.05 1.5v.5h-1.5v-.75c0-1.05.73-1.61 1.25-2l.44-.35a1.48 1.48 0 0 0 .56-1.15 1.5 1.5 0 0 0-3 0H8.5a3 3 0 0 1 6 0 2.96 2.96 0 0 1-1.25 2.25z"/></svg>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>© Vesper · 2025</footer>
-
+  <!-- 底部导航 -->
   <div class="footer">
     <div class="nav-item active">
       <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -212,6 +240,29 @@
       设置
     </div>
   </div>
+
+  <!-- 详情覆盖层 -->
+  <div id="detailOverlay">
+    <div id="detailBox">
+      <h2 id="detailTitle">工具详情</h2>
+      <button class="detail-btn">⭐ 收藏此工具</button>
+      <button class="detail-btn">📲 保存到快捷指令</button>
+      <button class="detail-btn">📌 保存到桌面</button>
+      <button class="detail-btn">💻 查看代码</button>
+      <button class="detail-btn">📖 使用教程</button>
+      <button class="detail-btn close-btn" onclick="closeDetail()">关闭</button>
+    </div>
+  </div>
+
+  <script>
+    function openDetail(name){
+      document.getElementById("detailTitle").innerText = name + " - 工具详情";
+      document.getElementById("detailOverlay").style.display = "flex";
+    }
+    function closeDetail(){
+      document.getElementById("detailOverlay").style.display = "none";
+    }
+  </script>
 
 </body>
 </html>
