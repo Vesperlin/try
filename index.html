@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
@@ -132,7 +132,32 @@
 </div>
 <!-- 极简脚本：搜索占位 -->
 <script>
-document.getElementById('q').addEventListener('input', e=>{
+/* --- 收藏状态存取 --- */
+const FAV_KEY = 'vesper:favs';              // 本地存储键
+const loadFavs = () => JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+const saveFavs = (arr) => localStorage.setItem(FAV_KEY, JSON.stringify(arr));
+const isFav = (k, arr) => arr.includes(k);
+
+/* --- 绑定首页卡片右侧“收藏”按钮 --- */
+function bindFavToggles(){
+  const favs = loadFavs();
+  document.querySelectorAll('[data-fav-key]').forEach(btn=>{
+    const key = btn.getAttribute('data-fav-key');
+    if(isFav(key, favs)) btn.classList.add('active');
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const list = loadFavs();
+      const i = list.indexOf(key);
+      if(i>=0){ list.splice(i,1); btn.classList.remove('active'); }
+      else    { list.push(key);   btn.classList.add('active'); }
+      saveFavs(list);
+    });
+  });
+}
+
+/* --- 启动 --- */
+document.addEventListener('DOMContentLoaded', bindFavToggles);
+</script>
   // 先留空：后续接入前端过滤或 AI 搜索
 });
 </script>
