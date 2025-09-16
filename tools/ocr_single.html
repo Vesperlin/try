@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>单图识别 - OCR</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<main class="container">
+  <div class="brand">单图识别</div>
+  <p class="sub">上传一张图片，系统会自动提取文字。</p>
+
+  <div class="card">
+    <label class="btn">
+      <input type="file" accept="image/*" hidden onchange="previewFile(event)">
+      选择图片
+    </label>
+    <img id="preview" style="max-width:100%;margin-top:1rem;display:none;" />
+    <textarea id="output" class="textarea" placeholder="识别结果会显示在这里…" readonly></textarea>
+  </div>
+</main>
+
+<nav class="navbar">
+  <a href="../index.html"><svg class="icon"><use href="../assets/icons.svg#icon-home"/></svg>首页</a>
+  <a href="../category/ocr.html"><svg class="icon"><use href="../assets/icons.svg#icon-back"/></svg>返回</a>
+</nav>
+
+<script>
+function previewFile(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const img = document.getElementById("preview");
+  img.src = URL.createObjectURL(file);
+  img.style.display = "block";
+  document.getElementById("output").value = "（这里将调用 OCR 模型 API 识别结果）";
+}
+</script>
+</body>
+</html>
