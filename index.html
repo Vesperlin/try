@@ -14,15 +14,19 @@
     }
     .section { margin:15px; }
     .section h2 { font-size:16px; color:#aaa; margin-bottom:10px; }
-    .list { display:flex; flex-direction:column; gap:8px; }
+    .grid {
+      display:grid; grid-template-columns: 1fr 1fr; gap:12px;
+    }
     .item {
-      background:#1a1a1a; padding:12px 15px; border-radius:8px;
-      display:flex; justify-content:space-between; align-items:center;
-      font-size:16px; font-weight:500; cursor:pointer;
-      transition:0.3s;
+      background:#1a1a1a; padding:18px; border-radius:10px;
+      text-align:center; font-size:16px; font-weight:500;
+      cursor:pointer; position:relative; transition:0.3s;
     }
     .item:hover { background:#2a2a2a; color:#4da6ff; }
-    .actions { display:flex; gap:10px; font-size:14px; color:#888; }
+    .actions {
+      position:absolute; top:6px; right:8px; display:flex; gap:6px;
+      font-size:13px; color:#888;
+    }
     .actions span { cursor:pointer; }
     footer {
       position:fixed; bottom:0; left:0; right:0; height:50px;
@@ -40,34 +44,34 @@
   </div>
   <div class="section">
     <h2>收藏夹</h2>
-    <div class="list" id="favorites"></div>
+    <div class="grid" id="favorites"></div>
   </div>
   <div class="section">
     <h2>全部功能</h2>
-    <div class="list">
+    <div class="grid">
       <div class="item" data-name="OCR">
-        <span>OCR 识别</span>
+        OCR 识别
         <div class="actions">
           <span class="fav">✦</span>
           <span class="export">⤓</span>
         </div>
       </div>
       <div class="item" data-name="AI 助手">
-        <span>AI 助手</span>
+        AI 助手
         <div class="actions">
           <span class="fav">✦</span>
           <span class="export">⤓</span>
         </div>
       </div>
       <div class="item" data-name="工具箱">
-        <span>工具箱</span>
+        工具箱
         <div class="actions">
           <span class="fav">✦</span>
           <span class="export">⤓</span>
         </div>
       </div>
       <div class="item" data-name="我的">
-        <span>我的</span>
+        我的
         <div class="actions">
           <span class="fav">✦</span>
           <span class="export">⤓</span>
