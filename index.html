@@ -3,207 +3,195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vesper 聚合工具箱</title>
+  <title>Vesper 系统入口</title>
   <style>
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: #0d0d0d;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #000;
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
     }
+
     header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
       background: #111;
-      padding: 10px;
-      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+    header h1 {
+      font-size: 18px;
       font-weight: bold;
-      border-bottom: 1px solid #222;
-      font-size: 1.1em;
     }
-    /* AI 辅助模式小条 */
-    #aiBar {
-      background: #1a1a1a;
-      padding: 6px 10px;
-      font-size: 0.85em;
-      color: #ccc;
-      border-bottom: 1px solid #222;
-      cursor: pointer;
+    header .icon {
+      width: 22px;
+      height: 22px;
+      fill: white;
     }
-    #aiBar input {
-      width: 100%;
-      padding: 6px;
-      border: none;
-      border-radius: 6px;
+
+    .search-bar {
+      display: flex;
+      align-items: center;
       background: #222;
-      color: #fff;
-      font-size: 0.9em;
-      display: none;
+      margin: 15px;
+      padding: 8px 12px;
+      border-radius: 10px;
     }
-    .page {
+    .search-bar input {
       flex: 1;
-      overflow-y: auto;
-      padding: 12px;
-      display: none;
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 14px;
+      outline: none;
     }
-    .page.active { display: block; }
-    h2 {
-      font-size: 1em;
-      margin: 12px 0;
-      color: #aaa;
-    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 15px;
     }
     .card {
-      background: #1a1a1a;
-      padding: 12px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 0.9em;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
+      background: #fff;
+      color: #000;
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
     }
     .card:hover {
-      background: #222;
-      transform: scale(1.03);
+      transform: translateY(-4px);
     }
-    .card-title { font-weight: bold; margin-bottom: 4px; }
-    .card-subtitle { font-size: 0.75em; color: #888; }
-    /* 底部导航栏 */
-    footer {
+    .card svg {
+      width: 28px;
+      height: 28px;
+      fill: black;
+    }
+    .card-title {
+      font-weight: bold;
+    }
+    .card-sub {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #111;
       display: flex;
       justify-content: space-around;
-      background: #111;
-      border-top: 1px solid #222;
-      padding: 8px 0;
+      padding: 12px 0;
+      border-top: 1px solid #333;
     }
-    footer div {
-      flex: 1;
-      text-align: center;
-      font-size: 0.85em;
-      color: #aaa;
-      cursor: pointer;
-    }
-    footer div.active { color: #4da6ff; font-weight: bold; }
-    /* 社区发帖输入框 */
-    #postBox {
+    .footer .nav-item {
       display: flex;
-      margin-top: 10px;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      color: #888;
     }
-    #postBox input {
-      flex: 1;
-      padding: 8px;
-      border-radius: 6px;
-      border: none;
-      background: #222;
-      color: #fff;
+    .footer .nav-item svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 3px;
+      fill: #888;
     }
-    #postBox button {
-      margin-left: 6px;
-      padding: 8px 12px;
-      background: #4da6ff;
-      border: none;
-      border-radius: 6px;
-      color: #fff;
-      cursor: pointer;
+    .footer .active {
+      color: white;
+    }
+    .footer .active svg {
+      fill: white;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      padding: 10px;
+      margin-bottom: 50px;
     }
   </style>
 </head>
 <body>
-  <header>Vesper 聚合工具箱</header>
-  
-  <!-- AI 辅助模式 -->
-  <div id="aiBar">🤖 ChatGPT 辅助模式（点击输入）<input type="text" placeholder="和 ChatGPT 对话..."></div>
 
-  <!-- 首页 -->
-  <div id="home" class="page active">
-    <div class="search">
-      <input type="text" placeholder="搜索功能..." style="width:100%;padding:8px;border:none;border-radius:6px;background:#222;color:#fff;">
-    </div>
-    <h2>收藏夹</h2>
+  <header>
+    <svg class="icon" viewBox="0 0 24 24"><path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/></svg>
+    <h1>Vesper 系统入口</h1>
+    <svg class="icon" viewBox="0 0 24 24"><path d="M21 21L15 15M17 10A7 7 0 1 1 3 10A7 7 0 0 1 17 10Z"/></svg>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" placeholder="搜索功能...">
+  </div>
+
+  <section>
+    <h3 style="padding:0 15px;">收藏夹</h3>
     <div class="grid">
-      <div class="card"><div class="card-title">OCR 识别</div><div class="card-subtitle">提取文字</div></div>
-      <div class="card"><div class="card-title">AI 对话</div><div class="card-subtitle">智能助手</div></div>
+      <div class="card">
+        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.62L12 2L9.19 8.63L2 9.24L7.45 13.97L5.82 21Z"/></svg>
+        <div>
+          <div class="card-title">OCR</div>
+          <div class="card-sub">图片文字识别</div>
+        </div>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 0 1 8 8c0 4-3 7-7 7v3a1 1 0 0 1-2 0v-3c-4 0-7-3-7-7a8 8 0 0 1 8-8z"/></svg>
+        <div>
+          <div class="card-title">AI 助手</div>
+          <div class="card-sub">智能聊天与任务</div>
+        </div>
+      </div>
     </div>
-    <h2>功能分类</h2>
+  </section>
+
+  <section>
+    <h3 style="padding:0 15px;">全部功能</h3>
     <div class="grid">
-      <div class="card"><div class="card-title">文件工具</div></div>
-      <div class="card"><div class="card-title">AI 工具</div></div>
-      <div class="card"><div class="card-title">系统工具</div></div>
-      <div class="card"><div class="card-title">设备工具</div></div>
-      <div class="card"><div class="card-title">效率工具</div></div>
-      <div class="card"><div class="card-title">快捷指令库</div></div>
-      <div class="card"><div class="card-title">社区</div></div>
+      <div class="card">
+        <svg viewBox="0 0 24 24"><path d="M12 20c4.41 0 8-3.59 8-8s-3.59-8-8-8s-8 3.59-8 8s3.59 8 8 8z"/></svg>
+        <div>
+          <div class="card-title">工具箱</div>
+          <div class="card-sub">集合多种实用工具</div>
+        </div>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4zM4 20v-1c0-2.67 5.33-4 8-4s8 1.33 8 4v1z"/></svg>
+        <div>
+          <div class="card-title">我的</div>
+          <div class="card-sub">个人信息与设置</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>© Vesper · 2025</footer>
+
+  <div class="footer">
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      首页
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.62L12 2L9.19 8.63L2 9.24L7.45 13.97L5.82 21Z"/></svg>
+      收藏
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4zM4 20v-1c0-2.67 5.33-4 8-4s8 1.33 8 4v1z"/></svg>
+      我的
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4s-1.79-4-4-4zm0-6C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2z"/></svg>
+      设置
     </div>
   </div>
 
-  <!-- 工具页（占位） -->
-  <div id="tools" class="page"><h2>全部工具（示例占位）</h2></div>
-
-  <!-- 快捷指令库 -->
-  <div id="shortcuts" class="page">
-    <h2>快捷指令库</h2>
-    <div class="grid">
-      <div class="card"><div class="card-title">效率类</div></div>
-      <div class="card"><div class="card-title">系统类</div></div>
-      <div class="card"><div class="card-title">AI 类</div></div>
-      <div class="card"><div class="card-title">用户上传</div></div>
-    </div>
-  </div>
-
-  <!-- 社区 -->
-  <div id="community" class="page">
-    <h2>用户交流区</h2>
-    <div class="card"><div class="card-title">用户A</div><div class="card-subtitle">今天试了OCR，很好用！</div></div>
-    <div class="card"><div class="card-title">用户B</div><div class="card-subtitle">推荐一个新的快捷指令！</div></div>
-    <div id="postBox">
-      <input type="text" placeholder="写点什么...">
-      <button>发布</button>
-    </div>
-  </div>
-
-  <!-- 我的 -->
-  <div id="user" class="page">
-    <h2>用户中心</h2>
-    <div class="grid">
-      <div class="card"><div class="card-title">账户</div></div>
-      <div class="card"><div class="card-title">会员中心</div></div>
-      <div class="card"><div class="card-title">开发者模式</div></div>
-    </div>
-  </div>
-
-  <!-- 底部导航 -->
-  <footer>
-    <div class="active" data-go="home">首页</div>
-    <div data-go="tools">工具</div>
-    <div data-go="shortcuts">快捷指令</div>
-    <div data-go="community">社区</div>
-    <div data-go="user">我的</div>
-  </footer>
-
-  <script>
-    // 底部导航切换
-    const navBtns=document.querySelectorAll("footer div");
-    const pages=document.querySelectorAll(".page");
-    navBtns.forEach(btn=>{
-      btn.addEventListener("click",()=>{
-        navBtns.forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
-        pages.forEach(p=>p.classList.remove("active"));
-        document.getElementById(btn.dataset.go).classList.add("active");
-      });
-    });
-    // AI 辅助条展开
-    const aiBar=document.getElementById("aiBar");
-    const aiInput=aiBar.querySelector("input");
-    aiBar.addEventListener("click",()=>{
-      aiInput.style.display=aiInput.style.display==="block"?"none":"block";
-      if(aiInput.style.display==="block") aiInput.focus();
-    });
-  </script>
 </body>
 </html>
