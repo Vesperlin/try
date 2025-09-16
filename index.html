@@ -1,268 +1,55 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vesper 系统入口</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Vesper 系统</title>
+  <link rel="stylesheet" href="assets/css/style.css">
   <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #0d0d0d;
-      color: #f0f0f0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+    .header{padding:20px 0;text-align:center}
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin:20px auto;
+      max-width:1000px;
+      width:90%;
     }
-
-    header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 15px 20px;
-      background: #111;
-      border-bottom: 1px solid #333;
+    .card{
+      background:#1a1a1a;
+      border:1px solid #2a2a2a;
+      border-radius:12px;
+      padding:18px;
+      text-align:center;
+      font-weight:700;
+      color:#f0f0f0;
+      text-decoration:none;
+      transition:transform .15s ease, border-color .15s ease;
     }
-    header h1 {
-      font-size: 18px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .page {
-      flex: 1;
-      overflow-y: auto;
-      padding-bottom: 100px; /* 避免被底部导航遮挡 */
-    }
-
-    .search-bar {
-      display: flex;
-      align-items: center;
-      background: #1a1a1a;
-      margin: 15px;
-      padding: 8px 12px;
-      border-radius: 8px;
-    }
-    .search-bar input {
-      flex: 1;
-      border: none;
-      background: transparent;
-      color: #fff;
-      font-size: 14px;
-      outline: none;
-    }
-
-    /* 分类卡片 */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      padding: 15px;
-    }
-    .card {
-      background: linear-gradient(145deg, #1a1a1a, #111);
-      border-radius: 12px;
-      padding: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid #222;
-      transition: all 0.25s ease;
-    }
-    .card:hover {
-      background: #222;
-      transform: translateY(-2px);
-    }
-    .card-left {
-      display: flex;
-      flex-direction: column;
-    }
-    .card-title {
-      font-weight: bold;
-      font-size: 15px;
-      color: #fff;
-    }
-    .card-sub {
-      font-size: 12px;
-      color: #aaa;
-      margin-top: 3px;
-    }
-    .help-btn {
-      width: 26px;
-      height: 26px;
-      background: #2a2a2a;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .help-btn svg {
-      width: 15px;
-      height: 15px;
-      fill: #bbb;
-    }
-
-    /* 底部导航（加高） */
-    .footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #111;
-      display: flex;
-      justify-content: space-around;
-      padding: 16px 0; /* 增加高度 */
-      border-top: 1px solid #333;
-    }
-    .footer .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 13px;
-      color: #888;
-    }
-    .footer .nav-item svg {
-      width: 22px;
-      height: 22px;
-      margin-bottom: 4px;
-      fill: #888;
-    }
-    .footer .active {
-      color: white;
-    }
-    .footer .active svg {
-      fill: white;
-    }
-
-    /* 详情页覆盖层 */
-    #detailOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-    #detailBox {
-      background: #1a1a1a;
-      border-radius: 12px;
-      padding: 20px;
-      width: 85%;
-      max-width: 400px;
-      text-align: center;
-      border: 1px solid #333;
-    }
-    #detailBox h2 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 18px;
-    }
-    .detail-btn {
-      background: #222;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 10px;
-      margin: 6px 0;
-      width: 100%;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .detail-btn:hover {
-      background: #333;
-    }
-    .close-btn {
-      margin-top: 12px;
-      background: #4a4a4a;
-    }
+    .card:hover{transform:translateY(-2px);border-color:#3a3a3a}
+    .subtitle{color:#9a9a9a;font-size:12px;margin-top:6px}
+    .spacer{height:84px}
   </style>
 </head>
 <body>
-
-  <header>
+  <div class="header">
     <h1>Vesper 系统入口</h1>
-  </header>
-
-  <div class="page">
-    <div class="search-bar">
-      <input type="text" placeholder="搜索功能 / 工具...">
-    </div>
-
-    <section>
-      <h3 style="padding:0 15px;color:#ccc;">大分类</h3>
-      <div class="grid">
-        <div class="card">
-          <div class="card-left">
-            <div class="card-title">OCR</div>
-            <div class="card-sub">图片识别工具</div>
-          </div>
-          <div class="help-btn" onclick="openDetail('OCR')">
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm.25 15h-1.5v-1.5h1.5zm1.75-6.5c-.5.39-1.05.82-1.05 1.5v.5h-1.5v-.75c0-1.05.73-1.61 1.25-2l.44-.35a1.48 1.48 0 0 0 .56-1.15 1.5 1.5 0 0 0-3 0H8.5a3 3 0 0 1 6 0 2.96 2.96 0 0 1-1.25 2.25z"/></svg>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-left">
-            <div class="card-title">AI 助手</div>
-            <div class="card-sub">大模型与智能功能</div>
-          </div>
-          <div class="help-btn" onclick="openDetail('AI 助手')">
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm.25 15h-1.5v-1.5h1.5zm1.75-6.5c-.5.39-1.05.82-1.05 1.5v.5h-1.5v-.75c0-1.05.73-1.61 1.25-2l.44-.35a1.48 1.48 0 0 0 .56-1.15 1.5 1.5 0 0 0-3 0H8.5a3 3 0 0 1 6 0 2.96 2.96 0 0 1-1.25 2.25z"/></svg>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 
-  <!-- 底部导航 -->
-  <div class="footer">
-    <div class="nav-item active">
-      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      首页
-    </div>
-    <div class="nav-item">
-      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.62L12 2L9.19 8.63L2 9.24L7.45 13.97L5.82 21Z"/></svg>
-      收藏
-    </div>
-    <div class="nav-item">
-      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4zM4 20v-1c0-2.67 5.33-4 8-4s8 1.33 8 4v1z"/></svg>
-      我的
-    </div>
-    <div class="nav-item">
-      <svg viewBox="0 0 24 24"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4s-1.79-4-4-4zm0-6C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2z"/></svg>
-      设置
-    </div>
+  <div class="grid">
+    <a class="card" href="#">OCR<div class="subtitle">图片转文档</div></a>
+    <a class="card" href="#">AI 助手<div class="subtitle">对话 / 工具</div></a>
+    <a class="card" href="#">工具箱<div class="subtitle">实用集合</div></a>
+    <a class="card" href="#">我的<div class="subtitle">设置 / 账户</div></a>
   </div>
 
-  <!-- 详情覆盖层 -->
-  <div id="detailOverlay">
-    <div id="detailBox">
-      <h2 id="detailTitle">工具详情</h2>
-      <button class="detail-btn">⭐ 收藏此工具</button>
-      <button class="detail-btn">📲 保存到快捷指令</button>
-      <button class="detail-btn">📌 保存到桌面</button>
-      <button class="detail-btn">💻 查看代码</button>
-      <button class="detail-btn">📖 使用教程</button>
-      <button class="detail-btn close-btn" onclick="closeDetail()">关闭</button>
-    </div>
-  </div>
+  <div class="spacer"></div>
 
-  <script>
-    function openDetail(name){
-      document.getElementById("detailTitle").innerText = name + " - 工具详情";
-      document.getElementById("detailOverlay").style.display = "flex";
-    }
-    function closeDetail(){
-      document.getElementById("detailOverlay").style.display = "none";
-    }
-  </script>
-
+  <nav class="navbar">
+    <a class="active" href="#">首页</a>
+    <a href="#">收藏</a>
+    <a href="#">我的</a>
+    <a href="#">设置</a>
+  </nav>
 </body>
 </html>
