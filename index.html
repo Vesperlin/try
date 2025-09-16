@@ -1,55 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Vesper 系统</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <style>
-    .header{padding:20px 0;text-align:center}
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      margin:20px auto;
-      max-width:1000px;
-      width:90%;
-    }
-    .card{
-      background:#1a1a1a;
-      border:1px solid #2a2a2a;
-      border-radius:12px;
-      padding:18px;
-      text-align:center;
-      font-weight:700;
-      color:#f0f0f0;
-      text-decoration:none;
-      transition:transform .15s ease, border-color .15s ease;
-    }
-    .card:hover{transform:translateY(-2px);border-color:#3a3a3a}
-    .subtitle{color:#9a9a9a;font-size:12px;margin-top:6px}
-    .spacer{height:84px}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Vesper · 系统入口</title>
+<link rel="preload" href="assets/icons.svg" as="image">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+/* --- 首页局部样式（先写在这里，后面再挪到 style.css） --- */
+.container{max-width:980px;margin:0 auto;padding:20px 16px 88px;}
+.brand{font-size:26px;font-weight:800;letter-spacing:.5px;margin:10px 0 18px;}
+.section{margin:22px 0 8px;display:flex;align-items:center;gap:10px}
+.section .line{height:1px;background:#2a2a2a;flex:1}
+.section h3{margin:0;font-size:14px;color:#bdbdbd;font-weight:700}
+
+/* 搜索框 */
+.search{position:relative;margin:8px 0 18px}
+.search input{
+  width:100%;height:42px;border-radius:10px;border:1px solid #2b2b2b;
+  background:#121212;color:#eee;padding:0 44px 0 14px;outline:none;
+}
+.search .suffix{position:absolute;right:10px;top:50%;transform:translateY(-50%);opacity:.7}
+
+/* 功能网格：两列，按钮扁平不膨胀 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 14px;border:1px solid #262626;border-radius:12px;
+  background:#121212;transition:background .15s,border-color .15s;
+}
+.tile:hover{background:#161616;border-color:#2f2f2f}
+.tile .title{font-weight:800;color:#f3f3f3}
+.tile .sub{font-size:12px;color:#8e8e8e}
+
+/* 详情按钮（矢量图标） */
+.icon-btn{width:30px;height:30px;border:1px solid #2b2b2b;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;background:#151515}
+.icon{width:18px;height:18px;display:inline-block}
+
+/* 底部导航（放大一点） */
+.navbar{height:72px}
+.navbar a{font-size:13px}
+.navbar a .icon{width:22px;height:22px;display:block;margin:0 auto 4px}
+</style>
 </head>
 <body>
-  <div class="header">
-    <h1>Vesper 系统入口</h1>
+
+<!-- 内联图标库挂载 -->
+<object data="assets/icons.svg" type="image/svg+xml" style="display:none"></object>
+
+<main class="container">
+  <div class="brand">Vesper 系统入口</div>
+
+  <!-- 搜索 -->
+  <div class="search">
+    <input id="q" type="search" placeholder="搜索功能…" />
+    <span class="suffix">
+      <svg class="icon"><use href="assets/icons.svg#icon-search"/></svg>
+    </span>
   </div>
 
-  <div class="grid">
-    <a class="card" href="#">OCR<div class="subtitle">图片转文档</div></a>
-    <a class="card" href="#">AI 助手<div class="subtitle">对话 / 工具</div></a>
-    <a class="card" href="#">工具箱<div class="subtitle">实用集合</div></a>
-    <a class="card" href="#">我的<div class="subtitle">设置 / 账户</div></a>
+  <!-- 收藏夹 -->
+  <div class="section"><h3>收藏夹</h3><div class="line"></div></div>
+  <div class="grid" id="fav">
+    <!-- 先留空，后面做收藏功能再填充 -->
   </div>
 
-  <div class="spacer"></div>
+  <!-- 全部功能（一级分类） -->
+  <div class="section"><h3>全部功能</h3><div class="line"></div></div>
+  <div class="grid" id="all">
+    <a class="tile" href="category/ocr.html">
+      <div>
+        <div class="title">OCR</div>
+        <div class="sub">图片转文档 / 多模型</div>
+      </div>
+      <div class="icon-btn" aria-label="详情">
+        <svg class="icon"><use href="assets/icons.svg#icon-info"/></svg>
+      </div>
+    </a>
 
-  <nav class="navbar">
-    <a class="active" href="#">首页</a>
-    <a href="#">收藏</a>
-    <a href="#">我的</a>
-    <a href="#">设置</a>
-  </nav>
+    <a class="tile" href="category/ai.html">
+      <div>
+        <div class="title">AI 助手</div>
+        <div class="sub">对话 / 写作 / 搜索</div>
+      </div>
+      <div class="icon-btn" aria-label="详情">
+        <svg class="icon"><use href="assets/icons.svg#icon-info"/></svg>
+      </div>
+    </a>
+
+    <a class="tile" href="category/tools.html">
+      <div>
+        <div class="title">工具箱</div>
+        <div class="sub">网页保存 / PDF / 解析</div>
+      </div>
+      <div class="icon-btn" aria-label="详情">
+        <svg class="icon"><use href="assets/icons.svg#icon-info"/></svg>
+      </div>
+    </a>
+
+    <a class="tile" href="category/mine.html">
+      <div>
+        <div class="title">我的</div>
+        <div class="sub">账户 / 设置 / 数据</div>
+      </div>
+      <div class="icon-btn" aria-label="详情">
+        <svg class="icon"><use href="assets/icons.svg#icon-info"/></svg>
+      </div>
+    </a>
+  </div>
+</main>
+
+<!-- 底部导航 -->
+<nav class="navbar">
+  <a class="active" href="index.html" aria-label="首页">
+    <svg class="icon"><use href="assets/icons.svg#icon-home"/></svg>
+    首页
+  </a>
+  <a href="category/fav.html" aria-label="收藏">
+    <svg class="icon"><use href="assets/icons.svg#icon-star"/></svg>
+    收藏
+  </a>
+  <a href="category/mine.html" aria-label="我的">
+    <svg class="icon"><use href="assets/icons.svg#icon-user"/></svg>
+    我的
+  </a>
+  <a href="category/settings.html" aria-label="设置">
+    <svg class="icon"><use href="assets/icons.svg#icon-settings"/></svg>
+    设置
+  </a>
+</nav>
+
+<!-- 极简脚本：搜索占位 -->
+<script>
+document.getElementById('q').addEventListener('input', e=>{
+  // 先留空：后续接入前端过滤或 AI 搜索
+});
+</script>
 </body>
 </html>
