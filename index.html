@@ -1,29 +1,122 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Vesper 系统入口</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vesper 工具箱</title>
   <style>
-    :root{
-      --bg:#111; --bg2:#181818; --panel:#1a1a1a; --panel2:#222;
-      --txt:#fff; --sub:#aaa; --muted:#666; --line:#333; --accent:#4da6ff; --accent2:#e14d4d;
-      --radius:10px;
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0d0d0d;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:-apple-system,system-ui,Segoe UI,Roboto,Helvetica,Arial;
-      background:var(--bg);color:var(--txt)}
-    header{height:52px;display:flex;align-items:center;justify-content:center;
-      border-bottom:1px solid var(--line);font-weight:700}
-    #title{font-size:18px}
-    main{padding:14px 14px 70px}
-    .search{margin:6px 0 12px}
-    .search input{width:100%;padding:10px 12px;border:none;border-radius:8px;
-      background:var(--panel2);color:var(--txt);font-size:14px;outline:none}
-    .section{margin:12px 0}
-    .section h2{font-size:14px;color:var(--sub);margin:0 0 8px 2px;font-weight:600}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .card,.item{
-      background:var(--panel);border-radius:var(--radius);padding:16px;position:relative;
-      transition:background .2s,color .2s;cursor:pointer;text-align:center;font-weight:600
-   
+    header {
+      padding: 16px;
+      text-align: center;
+      background: #111;
+      font-size: 1.4em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .search-bar {
+      margin: 16px;
+      text-align: center;
+    }
+    .search-bar input {
+      width: 90%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1em;
+    }
+    h2 {
+      margin: 16px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #ccc;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 0 16px 32px;
+    }
+    .card {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .card:hover {
+      background: #222;
+      transform: scale(1.05);
+    }
+    .card-title {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    .card-subtitle {
+      font-size: 0.85em;
+      color: #888;
+    }
+    footer {
+      margin-top: auto;
+      padding: 12px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+      border-top: 1px solid #222;
+    }
+  </style>
+</head>
+<body>
+  <header>Vesper 工具箱</header>
+
+  <div class="search-bar">
+    <input type="text" placeholder="🔍 搜索功能... (会员支持 AI 搜索)">
+  </div>
+
+  <h2>⭐ 收藏夹</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">OCR 识别</div>
+      <div class="card-subtitle">快速提取图片文字</div>
+    </div>
+    <div class="card">
+      <div class="card-title">AI 对话</div>
+      <div class="card-subtitle">智能聊天助手</div>
+    </div>
+  </div>
+
+  <h2>📂 全部工具</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">PDF 转 Word</div>
+      <div class="card-subtitle">文档格式转换</div>
+    </div>
+    <div class="card">
+      <div class="card-title">翻译助手</div>
+      <div class="card-subtitle">多语言互译</div>
+    </div>
+    <div class="card">
+      <div class="card-title">语音转文字</div>
+      <div class="card-subtitle">音频快速转写</div>
+    </div>
+    <div class="card">
+      <div class="card-title">写作润色</div>
+      <div class="card-subtitle">AI 文本优化</div>
+    </div>
+  </div>
+
+  <footer>© Vesper · 2025</footer>
+</body>
+</html>
