@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>快写便笺 · NovaBoard</title>
+  <link rel="preload" href="../assets/icons.svg" as="image">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script defer src="../assets/js/app.js"></script>
+</head>
+<body data-page="tool" data-asset-prefix="../">
+  <object data="../assets/icons.svg" type="image/svg+xml" style="display:none"></object>
+  <main class="container">
+    <a class="back-link" href="../category/tools.html">
+      <svg class="icon"><use href="../assets/icons.svg#icon-back"></use></svg>
+      返回效率工具
+    </a>
+    <header class="page-header">
+      <div class="brand">快写便笺</div>
+      <p class="sub">随手记录灵感、待办或会议结论，支持标签、完成标记与快速复制。</p>
+    </header>
+
+    <section class="card stack">
+      <h2>记录一条便笺</h2>
+      <form id="noteForm" class="stack">
+        <label class="field">标题
+          <input type="text" name="title" placeholder="便笺标题" maxlength="60" required />
+        </label>
+        <label class="field">标签（以逗号分隔）
+          <input type="text" name="tags" placeholder="例如：会议, 待办" maxlength="80" />
+        </label>
+        <label class="field">内容
+          <textarea name="content" class="textarea" placeholder="简要记录想法、待办或会议纪要" rows="5" required></textarea>
+        </label>
+        <button type="submit" class="btn primary">
+          <svg class="icon"><use href="../assets/icons.svg#icon-check"></use></svg> 保存便笺
+        </button>
+      </form>
+    </section>
+
+    <section class="card stack">
+      <div class="search">
+        <input type="search" id="noteSearch" placeholder="按标题、标签或内容搜索…" />
+        <span class="suffix"><svg class="icon"><use href="../assets/icons.svg#icon-search"></use></svg></span>
+      </div>
+      <div id="noteList" class="note-list" data-empty-text="暂无便笺，先添加一条吧。"></div>
+    </section>
+  </main>
+
+  <nav class="navbar">
+    <a href="../index.html" data-nav="home">
+      <svg class="icon"><use href="../assets/icons.svg#icon-home"></use></svg>
+      <span>首页</span>
+    </a>
+    <a href="../favorites.html" data-nav="favorites">
+      <svg class="icon"><use href="../assets/icons.svg#icon-star"></use></svg>
+      <span>收藏</span>
+    </a>
+    <a href="../profile.html" data-nav="profile">
+      <svg class="icon"><use href="../assets/icons.svg#icon-user"></use></svg>
+      <span>我的</span>
+    </a>
+    <a href="../settings.html" data-nav="settings">
+      <svg class="icon"><use href="../assets/icons.svg#icon-settings"></use></svg>
+      <span>设置</span>
+    </a>
+  </nav>
+
+  <script>
+    const NOTE_KEY = 'novaboard:quick-notes';
+
+    function loadNotes() {
+      try {
+        const value = JSON.parse(localStorage.getItem(NOTE_KEY) || '[]');
+        return Array.isArray(value) ? value : [];
+      } catch (error) {
+        console.warn('无法读取便笺列表', error);
+        return [];
+      }
+    }
+
+    function saveNotes(list) {
+      localStorage.setItem(NOTE_KEY, JSON.stringify(list));
+    }
+
+    function toggleDone(id) {
+      const list = loadNotes();
+      const next = list.map((item) => item.id === id ? { ...item, done: !item.done } : item);
+      saveNotes(next);
+      renderNotes(document.getElementById('noteSearch').value);
+    }
+
+    function deleteNote(id) {
+      const next = loadNotes().filter((item) => item.id !== id);
+      saveNotes(next);
+      renderNotes(document.getElementById('noteSearch').value);
+    }
+
+    function renderNotes(filter = '') {
+      const container = document.getElementById('noteList');
+      const list = loadNotes();
+      container.innerHTML = '';
+      const query = filter.trim().toLowerCase();
+      const filtered = query
+        ? list.filter((item) => [item.title, item.content, (item.tags || []).join(',')]
+            .some((field) => field && field.toLowerCase().includes(query)))
+        : list;
+
+      if (!filtered.length) {
+        const empty = document.createElement('div');
+        empty.className = 'empty-state';
+        empty.textContent = container.dataset.emptyText || '暂无便笺';
+        container.appendChild(empty);
+        return;
+      }
+
+      filtered.forEach((item) => {
+        const card = document.createElement('article');
+        card.className = 'note-card';
+        if (item.done) card.classList.add('done');
+
+        const title = document.createElement('h3');
+        title.textContent = item.title;
+
+        const tagsWrap = document.createElement('div');
+        tagsWrap.className = 'tags';
+        (item.tags || []).filter(Boolean).forEach((tagText) => {
+          const tag = document.createElement('span');
+          tag.className = 'tag';
+          tag.textContent = tagText;
+          tagsWrap.appendChild(tag);
+        });
+
+        const body = document.createElement('p');
+        body.textContent = item.content;
+
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'btn secondary';
+        toggleBtn.innerHTML = '<svg class="icon"><use href="../assets/icons.svg#icon-check"></use></svg> ' + (item.done ? '标记未完成' : '标记完成');
+        toggleBtn.addEventListener('click', () => toggleDone(item.id));
+
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'btn secondary';
+        copyBtn.innerHTML = '<svg class="icon"><use href="../assets/icons.svg#icon-copy"></use></svg> 复制';
+        copyBtn.addEventListener('click', () => {
+          navigator.clipboard?.writeText(`${item.title}\n${item.content}`).then(() => {
+            alert('便笺内容已复制');
+          }).catch(() => {
+            alert('复制失败，请手动复制。');
+          });
+        });
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'btn danger';
+        deleteBtn.innerHTML = '<svg class="icon"><use href="../assets/icons.svg#icon-trash"></use></svg> 删除';
+        deleteBtn.addEventListener('click', () => deleteNote(item.id));
+
+        actions.append(toggleBtn, copyBtn, deleteBtn);
+        card.append(title, tagsWrap, body, actions);
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('noteForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const form = event.target;
+      const data = new FormData(form);
+      const title = data.get('title').toString().trim();
+      const tags = (data.get('tags') || '').toString().split(',').map((tag) => tag.trim()).filter(Boolean);
+      const content = data.get('content').toString().trim();
+      if (!title || !content) {
+        alert('请填写标题和内容');
+        return;
+      }
+      const list = loadNotes();
+      list.unshift({
+        id: `note-${Date.now()}`,
+        title,
+        tags,
+        content,
+        done: false
+      });
+      saveNotes(list);
+      form.reset();
+      renderNotes(document.getElementById('noteSearch').value);
+    });
+
+    document.getElementById('noteSearch').addEventListener('input', (event) => {
+      renderNotes(event.target.value || '');
+    });
+
+    renderNotes();
+  </script>
+</body>
+</html>

@@ -1,12 +1,349 @@
-/* 通用设置 */
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  background: #0f0f0f;
-  color: #f0f0f0;
+:root {
+  color-scheme: dark;
+  --bg: #0f1014;
+  --bg-elevated: #161820;
+  --bg-muted: #1d1f29;
+  --text: #f5f6f7;
+  --text-subtle: #9ea3b0;
+  --border: #272b38;
+  --accent: #5c7cfa;
+  --accent-soft: rgba(92, 124, 250, 0.16);
+  --danger: #ff6b6b;
+  --shadow: 0 18px 38px rgba(0, 0, 0, 0.35);
 }
 
-/* 底部导航栏 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+main.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px 18px 140px;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.brand {
+  font-size: clamp(26px, 3vw, 32px);
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+.sub {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-subtle);
+}
+
+.section {
+  margin: 32px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section h3 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  margin: 0;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+}
+
+.section .line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.search {
+  position: relative;
+  margin: 8px 0 18px;
+}
+
+.search input[type="search"] {
+  width: 100%;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  padding: 0 48px 0 16px;
+  font-size: 15px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search input[type="search"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+  outline: none;
+}
+
+.search .suffix {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-subtle);
+  opacity: 0.9;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.tile {
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 150px;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.tile:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.tile-main {
+  display: flex;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tile-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--bg-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.tile-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tile-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.tile-title {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.tile-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-subtle);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  color: var(--text-subtle);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.fav-toggle {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-subtle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.fav-toggle:hover {
+  border-color: var(--accent);
+}
+
+.fav-toggle.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.empty-state {
+  border-radius: 16px;
+  border: 1px dashed var(--border);
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--text-subtle);
+  font-size: 14px;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.card {
+  background: var(--bg-elevated);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card code {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.card h2,
+.card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-subtle);
+}
+
+.field input,
+.field textarea,
+.field select {
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 14px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+  outline: none;
+}
+
+textarea.textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 12px;
+  border: none;
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn.secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.btn.danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 .navbar {
   position: fixed;
   bottom: 0;
@@ -14,51 +351,221 @@ body {
   right: 0;
   display: flex;
   justify-content: space-around;
-  background: #111;
-  border-top: 1px solid #333;
-
-  /* 让底栏高度更高（建议 70px，iOS 边条不挡） */
-  height: 70px;
-
-  /* iOS 安全区适配 */
-  padding-bottom: env(safe-area-inset-bottom);
+  background: rgba(18, 20, 28, 0.92);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  height: 74px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: 10;
 }
 
-/* 底栏里的按钮图标/文字 */
 .navbar a {
   flex: 1;
   text-align: center;
-  color: #b5b5b5;
-  font-size: 13px;              /* 文字稍小，避免喧宾夺主 */
+  color: var(--text-subtle);
+  font-size: 12px;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;                     /* 图标和文字之间的间距 */
-  transition: color 0.2s ease;  /* 悬停/点击时过渡更自然 */
+  gap: 6px;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-/* 底栏图标大小（svg 或 iconfont） */
 .navbar a .icon {
-  font-size: 22px;   /* 比文字大，更突出 */
-  line-height: 1;
+  width: 22px;
+  height: 22px;
 }
 
-/* 高亮状态 */
 .navbar a.active {
   color: #fff;
   font-weight: 600;
+  transform: translateY(-2px);
 }
 
-/* 卡片 */
-.card {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
-  border-radius: 8px;   /* 轻微圆角，更现代 */
-  padding: 1rem;
-  background: #181818;
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-subtle);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 18px;
 }
-.card .subtitle {
+
+.back-link:hover {
+  color: var(--text);
+}
+
+.back-link .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+}
+
+.item-row .meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-row .meta strong {
+  font-size: 14px;
+}
+
+.item-row .meta span {
   font-size: 12px;
-  color: #8c8c8c;
+  color: var(--text-subtle);
+}
+
+.note-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.note-card {
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-muted);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.note-card.done {
+  border-color: rgba(92, 124, 250, 0.35);
+  background: rgba(92, 124, 250, 0.08);
+}
+
+.note-card h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.note-card p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-subtle);
+  white-space: pre-wrap;
+}
+
+.note-card.done h3 {
+  text-decoration: line-through;
+  color: var(--text-subtle);
+}
+
+.note-card.done p {
+  color: rgba(158, 163, 176, 0.8);
+}
+
+.note-card .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.note-card .actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+.profile-preview {
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  background: var(--bg-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-preview h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.profile-preview .sub {
+  margin: 0;
+}
+
+.profile-preview .stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-subtle);
+}
+
+.stat-line strong {
+  color: var(--text);
+  font-size: 18px;
+}
+
+@media (max-width: 720px) {
+  main.container {
+    padding: 24px 16px 132px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .tile {
+    min-height: 140px;
+  }
+}
+
+@media (max-width: 520px) {
+  .navbar {
+    height: 78px;
+  }
+
+  .navbar a {
+    font-size: 11px;
+  }
 }

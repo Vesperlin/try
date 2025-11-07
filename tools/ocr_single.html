@@ -1,41 +1,80 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>单图识别 - OCR</title>
-<link rel="stylesheet" href="../assets/css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>单图识别 · NovaBoard</title>
+  <link rel="preload" href="../assets/icons.svg" as="image">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script defer src="../assets/js/app.js"></script>
 </head>
-<body>
+<body data-page="tool" data-asset-prefix="../">
+  <object data="../assets/icons.svg" type="image/svg+xml" style="display:none"></object>
+  <main class="container">
+    <a class="back-link" href="../category/ocr.html">
+      <svg class="icon"><use href="../assets/icons.svg#icon-back"></use></svg>
+      返回视觉识别
+    </a>
+    <header class="page-header">
+      <div class="brand">单图识别</div>
+      <p class="sub">上传一张图片，系统会在本地预览，并提示你接入 OCR API 的位置。</p>
+    </header>
 
-<main class="container">
-  <div class="brand">单图识别</div>
-  <p class="sub">上传一张图片，系统会自动提取文字。</p>
+    <section class="card stack">
+      <label class="field">选择图片
+        <input type="file" accept="image/*" onchange="previewFile(event)" />
+      </label>
+      <img id="preview" alt="预览" style="max-width:100%;border-radius:14px;display:none;" />
+      <div class="stack" style="gap:12px;">
+        <textarea id="output" class="textarea" placeholder="识别结果会显示在这里…" readonly></textarea>
+        <div class="actions">
+          <button type="button" class="btn primary" onclick="copyResult()">
+            <svg class="icon"><use href="../assets/icons.svg#icon-copy"></use></svg> 复制结果
+          </button>
+        </div>
+      </div>
+      <p class="sub">提示：将你的 OCR 接口请求写在 <code>previewFile</code> 函数中，即可把识别结果写入文本框。</p>
+    </section>
+  </main>
 
-  <div class="card">
-    <label class="btn">
-      <input type="file" accept="image/*" hidden onchange="previewFile(event)">
-      选择图片
-    </label>
-    <img id="preview" style="max-width:100%;margin-top:1rem;display:none;" />
-    <textarea id="output" class="textarea" placeholder="识别结果会显示在这里…" readonly></textarea>
-  </div>
-</main>
+  <nav class="navbar">
+    <a href="../index.html" data-nav="home">
+      <svg class="icon"><use href="../assets/icons.svg#icon-home"></use></svg>
+      <span>首页</span>
+    </a>
+    <a href="../favorites.html" data-nav="favorites">
+      <svg class="icon"><use href="../assets/icons.svg#icon-star"></use></svg>
+      <span>收藏</span>
+    </a>
+    <a href="../profile.html" data-nav="profile">
+      <svg class="icon"><use href="../assets/icons.svg#icon-user"></use></svg>
+      <span>我的</span>
+    </a>
+    <a href="../settings.html" data-nav="settings">
+      <svg class="icon"><use href="../assets/icons.svg#icon-settings"></use></svg>
+      <span>设置</span>
+    </a>
+  </nav>
 
-<nav class="navbar">
-  <a href="../index.html"><svg class="icon"><use href="../assets/icons.svg#icon-home"/></svg>首页</a>
-  <a href="../category/ocr.html"><svg class="icon"><use href="../assets/icons.svg#icon-back"/></svg>返回</a>
-</nav>
+  <script>
+    function previewFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const img = document.getElementById('preview');
+      img.src = URL.createObjectURL(file);
+      img.style.display = 'block';
+      document.getElementById('output').value = '（这里将调用 OCR 模型 API 返回识别结果）';
+    }
 
-<script>
-function previewFile(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  const img = document.getElementById("preview");
-  img.src = URL.createObjectURL(file);
-  img.style.display = "block";
-  document.getElementById("output").value = "（这里将调用 OCR 模型 API 识别结果）";
-}
-</script>
+    function copyResult() {
+      const text = document.getElementById('output').value;
+      if (!text) return;
+      navigator.clipboard?.writeText(text).then(() => {
+        alert('识别结果已复制到剪贴板');
+      }).catch(() => {
+        alert('复制失败，请手动选择文本复制。');
+      });
+    }
+  </script>
 </body>
 </html>
