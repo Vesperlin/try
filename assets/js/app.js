@@ -124,6 +124,24 @@
         icon: 'icon-bolt',
         badge: '效率工具',
         keywords: ['note', '便笺', '快速记录']
+      },
+      {
+        id: 'universal-toolbox',
+        name: '全能工具箱',
+        description: '集合文本整理、行动清单与剪藏链接生成的一站式工作台。',
+        path: 'tools/toolbox.html',
+        icon: 'icon-grid',
+        badge: '效率工具',
+        keywords: ['toolbox', '剪藏', 'workflow', '合集']
+      },
+      {
+        id: 'smart-clipper',
+        name: '剪藏展示页',
+        description: '以分享页形式呈现网页摘要、标签、摘录与行动计划。',
+        path: 'tools/clipper.html',
+        icon: 'icon-link',
+        badge: '效率工具',
+        keywords: ['剪藏', '收藏', '分享', '链接']
       }
     ],
     personal: [
