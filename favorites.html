@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>收藏夹 · NovaBoard</title>
+  <link rel="preload" href="assets/icons.svg" as="image">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body data-page="favorites" data-asset-prefix="">
+  <object data="assets/icons.svg" type="image/svg+xml" style="display:none"></object>
+  <main class="container">
+    <header class="page-header">
+      <div class="brand">收藏夹</div>
+      <p class="sub">这里汇总了你加星标的入口，随时回到最常用的工具。</p>
+    </header>
+
+    <div class="grid" id="favoritesList" data-empty-text="还没有收藏任何内容，返回首页给常用入口加星吧。"></div>
+  </main>
+
+    <nav class="navbar">
+      <a href="index.html" data-nav="home">
+        <svg class="icon"><use href="assets/icons.svg#icon-home"></use></svg>
+        <span>首页</span>
+      </a>
+      <a href="favorites.html" data-nav="favorites">
+        <svg class="icon"><use href="assets/icons.svg#icon-star"></use></svg>
+        <span>收藏</span>
+      </a>
+      <a href="profile.html" data-nav="profile">
+        <svg class="icon"><use href="assets/icons.svg#icon-user"></use></svg>
+        <span>我的</span>
+      </a>
+      <a href="settings.html" data-nav="settings">
+        <svg class="icon"><use href="assets/icons.svg#icon-settings"></use></svg>
+        <span>设置</span>
+      </a>
+    </nav>
+</body>
+</html>

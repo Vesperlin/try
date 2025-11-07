@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>提示语手册 · NovaBoard</title>
+  <link rel="preload" href="../assets/icons.svg" as="image">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script defer src="../assets/js/app.js"></script>
+</head>
+<body data-page="tool" data-asset-prefix="../">
+  <object data="../assets/icons.svg" type="image/svg+xml" style="display:none"></object>
+  <main class="container">
+    <a class="back-link" href="../category/ai.html">
+      <svg class="icon"><use href="../assets/icons.svg#icon-back"></use></svg>
+      返回 AI 助手
+    </a>
+    <header class="page-header">
+      <div class="brand">提示语手册</div>
+      <p class="sub">整理高质量提示词，标注用途并一键复制，构建你的 AI 工作流资料库。</p>
+    </header>
+
+    <section class="card stack">
+      <h2>新增提示语</h2>
+      <form id="promptForm" class="stack">
+        <label class="field">标题
+          <input type="text" name="title" placeholder="例如：文章润色" maxlength="60" required />
+        </label>
+        <label class="field">分类
+          <input type="text" name="category" placeholder="例如：写作 / 分析 / 代码" maxlength="40" />
+        </label>
+        <label class="field">提示语内容
+          <textarea name="content" class="textarea" placeholder="在这里粘贴或编写完整提示语" rows="6" required></textarea>
+        </label>
+        <button type="submit" class="btn primary">
+          <svg class="icon"><use href="../assets/icons.svg#icon-check"></use></svg> 保存提示语
+        </button>
+      </form>
+    </section>
+
+    <section class="card stack">
+      <div class="search">
+        <input type="search" id="promptSearch" placeholder="搜索提示语…" />
+        <span class="suffix"><svg class="icon"><use href="../assets/icons.svg#icon-search"></use></svg></span>
+      </div>
+      <div id="promptList" class="note-list" data-empty-text="还没有提示语，先在上方添加一个吧。"></div>
+    </section>
+  </main>
+
+  <nav class="navbar">
+    <a href="../index.html" data-nav="home">
+      <svg class="icon"><use href="../assets/icons.svg#icon-home"></use></svg>
+      <span>首页</span>
+    </a>
+    <a href="../favorites.html" data-nav="favorites">
+      <svg class="icon"><use href="../assets/icons.svg#icon-star"></use></svg>
+      <span>收藏</span>
+    </a>
+    <a href="../profile.html" data-nav="profile">
+      <svg class="icon"><use href="../assets/icons.svg#icon-user"></use></svg>
+      <span>我的</span>
+    </a>
+    <a href="../settings.html" data-nav="settings">
+      <svg class="icon"><use href="../assets/icons.svg#icon-settings"></use></svg>
+      <span>设置</span>
+    </a>
+  </nav>
+
+  <script>
+    const PROMPT_KEY = 'novaboard:prompts';
+
+    function loadPrompts() {
+      try {
+        const value = JSON.parse(localStorage.getItem(PROMPT_KEY) || '[]');
+        return Array.isArray(value) ? value : [];
+      } catch (error) {
+        console.warn('无法读取提示语列表', error);
+        return [];
+      }
+    }
+
+    function savePrompts(list) {
+      localStorage.setItem(PROMPT_KEY, JSON.stringify(list));
+    }
+
+    function renderPrompts(filter = '') {
+      const container = document.getElementById('promptList');
+      const list = loadPrompts();
+      container.innerHTML = '';
+      const query = filter.trim().toLowerCase();
+      const filtered = query
+        ? list.filter((item) => [item.title, item.category, item.content].some((field) => field && field.toLowerCase().includes(query)))
+        : list;
+
+      if (!filtered.length) {
+        const empty = document.createElement('div');
+        empty.className = 'empty-state';
+        empty.textContent = container.dataset.emptyText || '暂无提示语';
+        container.appendChild(empty);
+        return;
+      }
+
+      filtered.forEach((item) => {
+        const card = document.createElement('article');
+        card.className = 'note-card';
+
+        const title = document.createElement('h3');
+        title.textContent = item.title;
+
+        const tags = document.createElement('div');
+        tags.className = 'tags';
+        if (item.category) {
+          const tag = document.createElement('span');
+          tag.className = 'tag';
+          tag.textContent = item.category;
+          tags.appendChild(tag);
+        }
+
+        const body = document.createElement('p');
+        body.textContent = item.content;
+
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'btn secondary';
+        copyBtn.innerHTML = '<svg class="icon"><use href="../assets/icons.svg#icon-copy"></use></svg> 复制';
+        copyBtn.addEventListener('click', () => {
+          navigator.clipboard?.writeText(item.content).then(() => {
+            alert('提示语已复制');
+          }).catch(() => {
+            alert('复制失败，请手动复制内容。');
+          });
+        });
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'btn danger';
+        deleteBtn.innerHTML = '<svg class="icon"><use href="../assets/icons.svg#icon-trash"></use></svg> 删除';
+        deleteBtn.addEventListener('click', () => {
+          const next = loadPrompts().filter((prompt) => prompt.id !== item.id);
+          savePrompts(next);
+          renderPrompts(document.getElementById('promptSearch').value);
+        });
+
+        actions.append(copyBtn, deleteBtn);
+        card.append(title, tags, body, actions);
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('promptForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const form = event.target;
+      const data = new FormData(form);
+      const title = data.get('title').toString().trim();
+      const category = (data.get('category') || '').toString().trim();
+      const content = data.get('content').toString().trim();
+      if (!title || !content) {
+        alert('请填写标题和提示语内容');
+        return;
+      }
+      const list = loadPrompts();
+      list.unshift({
+        id: `prompt-${Date.now()}`,
+        title,
+        category,
+        content
+      });
+      savePrompts(list);
+      form.reset();
+      renderPrompts(document.getElementById('promptSearch').value);
+    });
+
+    document.getElementById('promptSearch').addEventListener('input', (event) => {
+      renderPrompts(event.target.value || '');
+    });
+
+    renderPrompts();
+  </script>
+</body>
+</html>

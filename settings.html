@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>偏好设置 · NovaBoard</title>
+  <link rel="preload" href="assets/icons.svg" as="image">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body data-page="settings" data-asset-prefix="">
+  <object data="assets/icons.svg" type="image/svg+xml" style="display:none"></object>
+  <main class="container">
+    <header class="page-header">
+      <div class="brand">偏好设置</div>
+      <p class="sub">定制主题色、管理自定义入口，让 NovaBoard 随时保持最新状态。</p>
+    </header>
+
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+      <section class="card stack">
+        <h2>主题与外观</h2>
+        <label class="field">主题主色
+          <input type="color" id="accentColor" name="accent" value="#5c7cfa" />
+        </label>
+        <p class="sub">选择喜欢的颜色，首页和卡片的强调色将即时更新。</p>
+      </section>
+
+      <section class="card stack">
+        <h2>自定义快捷入口</h2>
+        <form id="shortcutForm" class="stack">
+          <label class="field">名称
+            <input type="text" name="name" placeholder="例如：周报模板" maxlength="40" required />
+          </label>
+          <label class="field">描述
+            <input type="text" name="description" placeholder="一句话介绍用途" maxlength="120" />
+          </label>
+          <label class="field">链接
+            <input type="text" name="path" placeholder="可以是 /tools/... 或 https:// 链接" required />
+          </label>
+          <label class="field" style="flex-direction:row;align-items:center;gap:12px;">
+            <input type="checkbox" name="external" />
+            <span>在新标签页打开</span>
+          </label>
+          <button type="submit" class="btn primary">添加入口</button>
+        </form>
+      </section>
+    </div>
+
+    <section class="card stack">
+      <h2>已添加的入口</h2>
+      <div id="customList" class="item-list"></div>
+    </section>
+  </main>
+
+  <nav class="navbar">
+    <a href="index.html" data-nav="home">
+      <svg class="icon"><use href="assets/icons.svg#icon-home"></use></svg>
+      <span>首页</span>
+    </a>
+    <a href="favorites.html" data-nav="favorites">
+      <svg class="icon"><use href="assets/icons.svg#icon-star"></use></svg>
+      <span>收藏</span>
+    </a>
+    <a href="profile.html" data-nav="profile">
+      <svg class="icon"><use href="assets/icons.svg#icon-user"></use></svg>
+      <span>我的</span>
+    </a>
+    <a href="settings.html" data-nav="settings">
+      <svg class="icon"><use href="assets/icons.svg#icon-settings"></use></svg>
+      <span>设置</span>
+    </a>
+  </nav>
+</body>
+</html>

@@ -1,21 +1,104 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
   <!-- 首页 -->
   <symbol id="icon-home" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M3 9.5l9-7 9 7V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/>
+    <path d="M3 10.3l9-7.3 9 7.3V20a1 1 0 0 1-1 1h-5.4v-6.4H9.4V21H4a1 1 0 0 1-1-1v-9.7z" />
   </symbol>
 
-  <!-- 收藏 -->
+  <!-- 收藏（实心） -->
   <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 17.3l6.18 3.7-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+    <path d="M12 17.6l6.18 3.3-1.64-6.98L22 9.8l-6.9-.6L12 2.5l-3.1 6.7-6.9.6 5.46 4.12-1.64 6.98z" />
   </symbol>
 
-  <!-- 我的 -->
+  <!-- 收藏（描边） -->
+  <symbol id="icon-star-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+    <path d="M12 17.6l6.18 3.3-1.64-6.98L22 9.8l-6.9-.6L12 2.5l-3.1 6.7-6.9.6 5.46 4.12-1.64 6.98z" />
+  </symbol>
+
+  <!-- 用户 -->
   <symbol id="icon-user" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 12c2.67 0 8 1.34 8 4v2H4v-2c0-2.66 5.33-4 8-4zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+    <path d="M12 12.6c-3.3 0-6 2-6 4.4V20h12v-3c0-2.4-2.7-4.4-6-4.4zm0-2.2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
   </symbol>
 
   <!-- 设置 -->
   <symbol id="icon-settings" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M19.14,12.94a7.14,7.14,0,0,0,0-1.88l2.11-1.65a.5.5,0,0,0,.12-.64l-2-3.46a.5.5,0,0,0-.6-.22l-2.49,1a7,7,0,0,0-1.62-.94l-.38-2.65A.5.5,0,0,0,13.8,3H10.2a.5.5,0,0,0-.5.42L9.32,6.07a7,7,0,0,0-1.62.94l-2.49-1a.5.5,0,0,0-.6.22l-2,3.46a.5.5,0,0,0,.12.64l2.11,1.65a7.14,7.14,0,0,0,0,1.88L2.73,14.59a.5.5,0,0,0-.12.64l2,3.46a.5.5,0,0,0,.6.22l2.49-1a7,7,0,0,0,1.62.94l.38,2.65a.5.5,0,0,0,.5.42h3.6a.5.5,0,0,0,.5-.42l.38-2.65a7,7,0,0,0,1.62-.94l2.49,1a.5.5,0,0,0,.6-.22l2-3.46a.5.5,0,0,0-.12-.64ZM12,15.5A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/>
+    <path d="M19.4 13.5a7 7 0 0 0 0-3l2.1-1.7a.8.8 0 0 0 .2-.9l-2-3.5a.8.8 0 0 0-1-.3l-2.5 1a7.2 7.2 0 0 0-2-.9L13.7 2a.8.8 0 0 0-.8-.7h-2a.8.8 0 0 0-.8.7L9.8 4.2a7.2 7.2 0 0 0-2 .9l-2.5-1a.8.8 0 0 0-1 .3l-2 3.5a.8.8 0 0 0 .2.9l2.1 1.7a7 7 0 0 0 0 3l-2.1 1.7a.8.8 0 0 0-.2.9l2 3.5a.8.8 0 0 0 1 .3l2.5-1a7.2 7.2 0 0 0 2 .9l.3 2.5a.8.8 0 0 0 .8.7h2a.8.8 0 0 0 .8-.7l.3-2.5a7.2 7.2 0 0 0 2-.9l2.5 1a.8.8 0 0 0 1-.3l2-3.5a.8.8 0 0 0-.2-.9zM12 15.6A3.6 3.6 0 1 1 15.6 12 3.6 3.6 0 0 1 12 15.6z" />
+  </symbol>
+
+  <!-- 搜索 -->
+  <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <circle cx="11" cy="11" r="6" />
+    <line x1="16.65" y1="16.65" x2="21" y2="21" />
+  </symbol>
+
+  <!-- 信息 -->
+  <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <circle cx="12" cy="12" r="9" />
+    <line x1="12" y1="10" x2="12" y2="16" />
+    <circle cx="12" cy="7" r="1" fill="currentColor" stroke="none" />
+  </symbol>
+
+  <!-- 返回 -->
+  <symbol id="icon-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6" />
+  </symbol>
+
+  <!-- 外链 -->
+  <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.6 13.4l-1.2 1.2a3.5 3.5 0 0 1-5-5l3.5-3.5a3.5 3.5 0 0 1 5 5l-.7.7" />
+    <path d="M13.4 10.6l1.2-1.2a3.5 3.5 0 0 1 5 5l-3.5 3.5a3.5 3.5 0 0 1-5-5l.7-.7" />
+  </symbol>
+
+  <!-- 网格/分类 -->
+  <symbol id="icon-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+  </symbol>
+
+  <!-- AI/机器人 -->
+  <symbol id="icon-robot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="8" width="16" height="12" rx="3" />
+    <path d="M12 4v4" />
+    <circle cx="9" cy="13" r="1.5" />
+    <circle cx="15" cy="13" r="1.5" />
+    <path d="M7 4h10" />
+  </symbol>
+
+  <!-- 闪电/效率 -->
+  <symbol id="icon-bolt" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M13 2L4 13h6l-1 9 9-11h-6z" />
+  </symbol>
+
+  <!-- OCR -->
+  <symbol id="icon-ocr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 5v4M4 5h4M20 5h-4M20 5v4M4 19v-4M4 19h4M20 19h-4M20 19v-4" />
+    <rect x="8" y="8" width="8" height="8" rx="1.5" />
+  </symbol>
+
+  <!-- 编辑/笔记 -->
+  <symbol id="icon-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 20h4l10-10-4-4L4 16v4z" />
+    <path d="M14 6l4 4" />
+  </symbol>
+
+  <!-- 复制 -->
+  <symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="9" y="9" width="11" height="11" rx="2" />
+    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+  </symbol>
+
+  <!-- 删除 -->
+  <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 7h14" />
+    <path d="M10 11v6" />
+    <path d="M14 11v6" />
+    <path d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12" />
+    <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
+  </symbol>
+
+  <!-- 勾选 -->
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4 12 10 18 20 6" />
   </symbol>
 </svg>
