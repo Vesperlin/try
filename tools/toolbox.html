@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>全能工具箱 · NovaBoard</title>
+  <link rel="preload" href="../assets/icons.svg" as="image">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/toolbox.css">
+  <script defer src="../assets/js/app.js"></script>
+  <script defer src="../assets/js/toolbox.js"></script>
+</head>
+<body data-page="toolbox" data-asset-prefix="../">
+  <object data="../assets/icons.svg" type="image/svg+xml" style="display:none"></object>
+  <main class="container">
+    <a class="back-link" href="../index.html">
+      <svg class="icon"><use href="../assets/icons.svg#icon-back"></use></svg>
+      返回首页
+    </a>
+
+    <section class="toolbox-hero">
+      <div class="intro">
+        <span class="chip">智能合集</span>
+        <h1>全能工具箱</h1>
+        <p>
+          聚合 NovaBoard 的常用效率组件，快速整理文字、规划行动、生成可分享的剪藏链接。
+          无论是电脑还是手机，都能保持沉浸流畅的操作体验。
+        </p>
+        <div class="toolbox-quick-actions">
+          <a href="../category/ai.html">
+            <svg class="icon" width="16" height="16"><use href="../assets/icons.svg#icon-robot"></use></svg>
+            AI 助手库
+          </a>
+          <a href="../tools/quick_capture.html">
+            <svg class="icon" width="16" height="16"><use href="../assets/icons.svg#icon-bolt"></use></svg>
+            快写便笺
+          </a>
+          <a href="../tools/prompt_notebook.html">
+            <svg class="icon" width="16" height="16"><use href="../assets/icons.svg#icon-pencil"></use></svg>
+            提示语手册
+          </a>
+          <a href="../category/ocr.html">
+            <svg class="icon" width="16" height="16"><use href="../assets/icons.svg#icon-ocr"></use></svg>
+            OCR 工作区
+          </a>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat-card">
+          <span class="label">工具模块</span>
+          <strong>8+</strong>
+          <p>集中式入口涵盖 OCR、AI、效率与个人中心。</p>
+        </div>
+        <div class="stat-card">
+          <span class="label">本地化</span>
+          <strong>100%</strong>
+          <p>数据保存在浏览器本地，记录只属于你。</p>
+        </div>
+        <div class="stat-card">
+          <span class="label">移动端</span>
+          <strong>全面适配</strong>
+          <p>响应式布局针对不同屏幕自动调整。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>常用工具组件</h3>
+      <div class="line"></div>
+    </section>
+
+    <div class="toolbox-grid">
+      <article class="tool-card text-lab" id="text-lab">
+        <header>
+          <span class="icon"><svg class="icon"><use href="../assets/icons.svg#icon-pencil"></use></svg></span>
+          <h3>文本精修实验室</h3>
+        </header>
+        <p>快速统计字数、清理格式并切换大小写，整理提示词或会议记录更省时。</p>
+        <textarea data-text-lab-input placeholder="把需要清理的内容粘贴到这里，开始你的文本整理。"></textarea>
+        <div class="text-actions">
+          <button type="button" data-text-action="uppercase">转为大写</button>
+          <button type="button" data-text-action="lowercase">转为小写</button>
+          <button type="button" data-text-action="title">标题格式</button>
+          <button type="button" data-text-action="clean">智能排版</button>
+          <button type="button" data-text-action="copy">复制结果</button>
+        </div>
+        <div class="stats">
+          <span>字符数<strong data-text-stat="chars">0</strong></span>
+          <span>词数<strong data-text-stat="words">0</strong></span>
+          <span>行数<strong data-text-stat="lines">0</strong></span>
+          <span>预计阅读<strong data-text-stat="reading">—</strong></span>
+        </div>
+      </article>
+
+      <article class="tool-card checklist" id="checklist">
+        <header>
+          <span class="icon"><svg class="icon"><use href="../assets/icons.svg#icon-check"></use></svg></span>
+          <h3>分段行动清单</h3>
+        </header>
+        <p>将剪藏内容拆分为可执行的下一步，进度与状态会自动保存在本地。</p>
+        <form data-checklist-form>
+          <input type="text" placeholder="写下你的待办事项，例如：整理阅读摘要" aria-label="新增待办">
+          <button type="submit">添加</button>
+        </form>
+        <ul data-checklist-list></ul>
+      </article>
+
+      <article class="tool-card">
+        <header>
+          <span class="icon"><svg class="icon"><use href="../assets/icons.svg#icon-grid"></use></svg></span>
+          <h3>常用工具索引</h3>
+        </header>
+        <p>随时跳转到 NovaBoard 的核心模块，把工作流串联起来。</p>
+        <div class="workflow-card">
+          <header>
+            <span class="icon"><svg class="icon"><use href="../assets/icons.svg#icon-bolt"></use></svg></span>
+            <div>
+              <strong>效率工作流</strong>
+              <p style="margin:4px 0 0;color:var(--text-subtle);font-size:13px;">从采集到整理的完整闭环。</p>
+            </div>
+          </header>
+          <footer>
+            <a href="../tools/quick_capture.html">快写便笺</a>
+            <a href="../tools/toolbox.html#clipper">剪藏构建器</a>
+            <a href="../favorites.html">收藏中心</a>
+          </footer>
+        </div>
+        <div class="workflow-card">
+          <header>
+            <span class="icon"><svg class="icon"><use href="../assets/icons.svg#icon-robot"></use></svg></span>
+            <div>
+              <strong>AI 创作链路</strong>
+              <p style="margin:4px 0 0;color:var(--text-subtle);font-size:13px;">提示词 → 生成 → 整理。</p>
+            </div>
+          </header>
+          <footer>
+            <a href="../tools/prompt_notebook.html">提示语手册</a>
+            <a href="../category/ai.html">AI 助手</a>
+            <a href="../tools/toolbox.html#text-lab">文本精修</a>
+          </footer>
+        </div>
+      </article>
+    </div>
+
+    <section class="section">
+      <h3>组合工作流示例</h3>
+      <div class="line"></div>
+    </section>
+
+    <div class="workflow-list">
+      <article class="workflow-card">
+        <header>
+          <span class="icon"><svg class="icon"><use href="../assets/icons.svg#icon-ocr"></use></svg></span>
+          <div>
+            <strong>扫描到整理</strong>
+            <p style="margin:4px 0 0;color:var(--text-subtle);font-size:13px;">将纸质资料变成结构化笔记。</p>
+          </div>
+        </header>
+        <p style="margin:0;color:var(--text-subtle);">多图 OCR → 文本精修 → 剪藏分享。</p>
+        <footer>
+          <a href="../tools/ocr_multi.html">多图合并</a>
+          <a href="#text-lab">文本实验室</a>
+          <a href="#clipper">剪藏构建</a>
+        </footer>
+      </article>
+
+      <article class="workflow-card">
+        <header>
+          <span class="icon"><svg class="icon"><use href="../assets/icons.svg#icon-pencil"></use></svg></span>
+          <div>
+            <strong>灵感到落地</strong>
+            <p style="margin:4px 0 0;color:var(--text-subtle);font-size:13px;">捕捉灵感、拆任务、安排下一步。</p>
+          </div>
+        </header>
+        <p style="margin:0;color:var(--text-subtle);">快写便笺 → 行动清单 → 剪藏发布。</p>
+        <footer>
+          <a href="../tools/quick_capture.html">快写便笺</a>
+          <a href="#checklist">行动清单</a>
+          <a href="#clipper">剪藏链接</a>
+        </footer>
+      </article>
+
+      <article class="workflow-card">
+        <header>
+          <span class="icon"><svg class="icon"><use href="../assets/icons.svg#icon-robot"></use></svg></span>
+          <div>
+            <strong>AI 内容管理</strong>
+            <p style="margin:4px 0 0;color:var(--text-subtle);font-size:13px;">分类提示词，沉淀知识体系。</p>
+          </div>
+        </header>
+        <p style="margin:0;color:var(--text-subtle);">提示语 → 生成结果 → 剪藏存档。</p>
+        <footer>
+          <a href="../tools/prompt_notebook.html">提示语手册</a>
+          <a href="#text-lab">文本优化</a>
+          <a href="#clipper">剪藏存档</a>
+        </footer>
+      </article>
+    </div>
+
+    <section class="section" id="clipper">
+      <h3>剪藏链接构建器</h3>
+      <div class="line"></div>
+    </section>
+
+    <div class="clipper-lab" data-clip-template>
+      <div class="form">
+        <label>
+          剪藏标题
+          <input type="text" data-clip-field="title" placeholder="例如：多模态 AI 设计指南">
+        </label>
+        <label>
+          页面链接
+          <input type="url" data-clip-field="url" placeholder="https://...">
+        </label>
+        <label>
+          概要描述
+          <textarea data-clip-field="description" placeholder="写下这次收藏的目的与关键信息。"></textarea>
+        </label>
+        <label>
+          标签
+          <textarea data-clip-field="tags" placeholder="用逗号或换行分隔，例如：设计, AI, 交互"></textarea>
+        </label>
+        <label>
+          重点摘录
+          <textarea data-clip-field="highlights" placeholder="每行代表一条高亮内容，用来快速回顾"></textarea>
+        </label>
+        <label>
+          行动计划
+          <textarea data-clip-field="tasks" placeholder="列出下一步行动，每行一条"></textarea>
+        </label>
+        <label>
+          备注/灵感
+          <textarea data-clip-field="notes" placeholder="补充上下文、灵感或引用的资料链接"></textarea>
+        </label>
+        <label>
+          封面图片链接
+          <input type="url" data-clip-field="cover" placeholder="可选：粘贴一张代表性的封面图片地址">
+        </label>
+        <div class="actions">
+          <button type="button" class="primary" data-generate-link>生成分享链接</button>
+          <button type="button" class="secondary" data-copy-link>复制链接</button>
+          <a class="secondary disabled" data-open-link href="#" aria-disabled="true" target="_blank" rel="noopener">预览页面</a>
+        </div>
+        <div class="generated-link">
+          <span>生成后的链接将展示你的剪藏页：</span>
+          <input type="text" data-clip-link readonly placeholder="点击“生成分享链接”以获取地址">
+        </div>
+      </div>
+      <div class="clipper-preview" data-clip-preview>
+        <div class="preview-cover"></div>
+        <div class="preview-body">
+          <h2 data-preview-title>你的专属剪藏标题</h2>
+          <p data-preview-desc>为重要网页生成摘要、标签、行动项与知识留痕，集中保存你的灵感。</p>
+          <div class="meta-row">
+            <svg class="icon" width="16" height="16"><use href="../assets/icons.svg#icon-link"></use></svg>
+            <span data-preview-link>链接将显示在这里</span>
+          </div>
+          <div class="tag-group" data-preview-tags></div>
+          <div class="highlight-list" data-preview-highlights></div>
+          <div class="preview-tasks" data-preview-tasks></div>
+          <div class="preview-notes" data-preview-notes></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <nav class="navbar">
+    <a href="../index.html" data-nav="home">
+      <svg class="icon"><use href="../assets/icons.svg#icon-home"></use></svg>
+      <span>首页</span>
+    </a>
+    <a href="../favorites.html" data-nav="favorites">
+      <svg class="icon"><use href="../assets/icons.svg#icon-star"></use></svg>
+      <span>收藏</span>
+    </a>
+    <a href="../profile.html" data-nav="profile">
+      <svg class="icon"><use href="../assets/icons.svg#icon-user"></use></svg>
+      <span>我的</span>
+    </a>
+    <a href="../settings.html" data-nav="settings">
+      <svg class="icon"><use href="../assets/icons.svg#icon-settings"></use></svg>
+      <span>设置</span>
+    </a>
+  </nav>
+</body>
+</html>

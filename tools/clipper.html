@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>剪藏板 · NovaBoard</title>
+  <link rel="preload" href="../assets/icons.svg" as="image">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/toolbox.css">
+  <script defer src="../assets/js/app.js"></script>
+  <script defer src="../assets/js/clipper.js"></script>
+</head>
+<body data-page="clipper" data-asset-prefix="../">
+  <object data="../assets/icons.svg" type="image/svg+xml" style="display:none"></object>
+  <main class="container">
+    <div class="clipper-shell">
+      <header>
+        <a class="back-link" href="toolbox.html">
+          <svg class="icon"><use href="../assets/icons.svg#icon-back"></use></svg>
+          返回工具箱
+        </a>
+        <h1 data-clip-title>NovaBoard 剪藏示例</h1>
+        <p data-clip-description>这是一个可以分享给同事与伙伴的剪藏页面，包含摘要、标签、重点摘录与下一步行动。</p>
+      </header>
+
+      <div class="clipper-board">
+        <div class="board-cover" data-clip-cover></div>
+        <div class="board-body">
+          <div class="board-header">
+            <div class="board-meta">
+              <svg class="icon" width="16" height="16"><use href="../assets/icons.svg#icon-link"></use></svg>
+              <a data-clip-url href="#" target="_blank" rel="noopener">novaboard.example/toolbox</a>
+              <span data-clip-domain>来源：NovaBoard</span>
+              <span data-clip-reading></span>
+            </div>
+          </div>
+
+          <div class="board-grid">
+            <section class="panel">
+              <h3>重点摘录</h3>
+              <div class="highlight-list" data-clip-highlights></div>
+            </section>
+            <section class="panel">
+              <h3>行动计划</h3>
+              <ul data-clip-tasks></ul>
+            </section>
+            <section class="panel">
+              <h3>标签与备注</h3>
+              <div class="tag-group" data-clip-tags></div>
+              <div class="clipper-note" data-clip-notes></div>
+            </section>
+          </div>
+
+          <footer>
+            <span data-clip-footer>由 NovaBoard 生成的剪藏页面。</span>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
